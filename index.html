@@ -4,7 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#fdf6fb" />
-<title>Tipo — Pastel Mind &amp; Paper Decoder</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Tipo" />
+<title>Tipo</title>
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" type="image/svg+xml" href="./icon.svg" />
+<link rel="apple-touch-icon" href="./icon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
@@ -13,26 +18,16 @@
   --bg-1: #fdf5fb;
   --bg-2: #f3efff;
   --bg-3: #ecfbf5;
-  --card: rgba(255, 255, 255, 0.90);
-  --card-solid: #ffffff;
+  --card: rgba(255, 255, 255, 0.92);
   --border: #ede3f7;
   --text: #1f1b2e;
   --muted: #6b6480;
   --violet: #8b5cf6;
-  --violet-soft: #f3ecff;
   --rose: #ec4899;
-  --rose-soft: #fce7f3;
   --mint: #10b981;
-  --mint-soft: #d1fae5;
-  --sky: #3b82f6;
-  --sky-soft: #e0f2fe;
-  --gold: #f59e0b;
-  --gold-soft: #fef3c7;
-  --coral: #fb7185;
   --shadow: 0 12px 32px rgba(139, 92, 246, 0.08), 0 2px 8px rgba(31, 27, 46, 0.04);
   --radius: 22px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -57,9 +52,9 @@ body {
   z-index: 40;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.80);
+  background: rgba(255, 255, 255, 0.86);
   border-bottom: 1px solid var(--border);
-  padding: 10px 14px 12px;
+  padding: 8px 12px;
 }
 
 .topbar-inner {
@@ -71,86 +66,67 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .brand-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 13px;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #f472b6 0%, #a78bfa 55%, #34d399 100%);
   display: grid;
   place-items: center;
   color: #fff;
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 900;
-  box-shadow: 0 6px 16px rgba(167, 139, 250, 0.30);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.28);
   flex-shrink: 0;
 }
 
 .brand-title {
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: 850;
+  font-size: 16px;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1;
 }
 
-.brand-sub {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.status-banner {
-  font-size: 12px;
-  font-weight: 700;
-  color: #6d28d9;
-  background: linear-gradient(90deg, #f5f0ff, #fdf2f8, #ecfdf5);
-  border: 1px solid #e9d5ff;
-  padding: 6px 13px;
-  border-radius: 999px;
-  white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.live-chips {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.chip {
-  padding: 4px 9px;
-  border-radius: 999px;
-  background: #f8f5ff;
-  border: 1px solid #e9ddff;
+.install-btn {
+  border: 1px solid #e4d8f5;
+  background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%);
   color: #5b21b6;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
 }
-.chip.mint { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
-.chip.sky { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
-.chip.rose { background: #fdf2f8; border-color: #fbcfe8; color: #be185d; }
-.chip.gold { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+
+.install-toast {
+  font-size: 12px;
+  color: #5b21b6;
+  background: #f5f0ff;
+  border: 1px solid #e4d8f5;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
 
 .tab-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  background: rgba(244, 239, 255, 0.75);
-  padding: 5px;
-  border-radius: 16px;
+  gap: 5px;
+  background: rgba(244, 239, 255, 0.78);
+  padding: 4px;
+  border-radius: 14px;
   border: 1px solid var(--border);
 }
 
@@ -161,25 +137,23 @@ body {
   font-family: var(--font);
   font-weight: 700;
   font-size: 13px;
-  padding: 9px 6px;
-  border-radius: 12px;
+  padding: 7px 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .tab-btn.active {
   background: linear-gradient(135deg, #fce7f3 0%, #ede9fe 100%);
   color: #4c1d95;
-  box-shadow: 0 3px 10px rgba(139, 92, 246, 0.14);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.14);
 }
 
 .container {
   max-width: 960px;
   margin: 0 auto;
-  padding: 18px 14px 72px;
+  padding: 14px 12px 64px;
 }
 
 .tab-panel { display: none; animation: fadeIn 0.22s ease; }
@@ -196,42 +170,25 @@ body {
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 22px;
+  padding: 20px;
   box-shadow: var(--shadow);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
-.live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #047857;
-  background: #ecfdf5;
-  border: 1px solid #a7f3d0;
-  padding: 5px 12px;
+.chip {
+  padding: 4px 10px;
   border-radius: 999px;
-  margin-bottom: 12px;
+  background: #f8f5ff;
+  border: 1px solid #e9ddff;
+  color: #5b21b6;
+  font-size: 11px;
+  font-weight: 700;
 }
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
-  animation: pulse 1.8s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55); }
-  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
+.chip.mint { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
+.chip.gold { background: #fffbeb; border-color: #fde68a; color: #b45309; }
 
 h1 {
-  font-size: clamp(22px, 4vw, 31px);
+  font-size: clamp(21px, 4vw, 30px);
   line-height: 1.18;
   letter-spacing: -0.03em;
   margin: 0 0 10px;
@@ -239,7 +196,7 @@ h1 {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 19px;
   letter-spacing: -0.02em;
   margin: 0 0 6px;
   font-weight: 800;
@@ -254,15 +211,15 @@ h3 {
 .subcopy {
   color: var(--muted);
   font-size: 14px;
-  margin: 0 0 18px;
+  margin: 0 0 16px;
 }
 
 .wave-box {
   background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #f0fdf4 100%);
   border: 1px solid #eadcf8;
   border-radius: 18px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
 }
 
 .wave-head {
@@ -270,7 +227,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-size: 12px;
   font-weight: 700;
   color: #5b21b6;
@@ -281,8 +238,8 @@ h3 {
   align-items: flex-end;
   justify-content: space-between;
   gap: 4px;
-  height: 44px;
-  padding: 4px 2px;
+  height: 40px;
+  padding: 2px;
 }
 
 .wave-bar {
@@ -313,6 +270,7 @@ textarea, select, input[type="text"] {
   border-radius: 14px;
   padding: 12px 14px;
   outline: none;
+  resize: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -321,51 +279,12 @@ textarea:focus, select:focus, input[type="text"]:focus {
   box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.16);
 }
 
-.ink-pad-wrap {
-  margin-top: 16px;
-  background: #fcfaf4;
-  border: 1.5px solid #e4d8f5;
-  border-radius: 16px;
-  padding: 12px;
-}
-
-.ink-pad-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.ink-canvas {
-  width: 100%;
-  height: 170px;
-  display: block;
-  background: #faf7ef;
-  border: 1px solid #e6dfd0;
-  border-radius: 12px;
-  touch-action: none;
-  cursor: crosshair;
-}
-
-.ink-canvas.tall {
-  height: 290px;
-}
-
-.metric-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
 .profile-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .dob-grid {
@@ -383,20 +302,20 @@ textarea:focus, select:focus, input[type="text"]:focus {
 
 @media (max-width: 600px) {
   .form-grid { grid-template-columns: 1fr; }
-  .tab-btn { font-size: 12px; padding: 8px 4px; }
+  .tab-btn { font-size: 12.5px; padding: 7px 2px; }
 }
 
 .btn-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 16px;
 }
 
 .btn {
   border: none;
   border-radius: 15px;
-  padding: 13px 20px;
+  padding: 13px 18px;
   font-family: var(--font);
   font-size: 14px;
   font-weight: 800;
@@ -416,7 +335,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
   color: #fff;
   box-shadow: 0 8px 20px rgba(139, 92, 246, 0.28);
   flex: 1;
-  min-width: 210px;
+  min-width: 200px;
 }
 
 .btn-mint {
@@ -443,7 +362,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 14px;
 }
 
@@ -460,26 +379,25 @@ textarea:focus, select:focus, input[type="text"]:focus {
 
 .timer-ring-wrap {
   position: relative;
-  width: 58px;
-  height: 58px;
+  width: 56px;
+  height: 56px;
   flex-shrink: 0;
 }
 
-.timer-ring-wrap svg { transform: rotate(-90deg); width: 58px; height: 58px; }
+.timer-ring-wrap svg { transform: rotate(-90deg); width: 56px; height: 56px; }
 
 .timer-ring-text {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  font-family: var(--mono);
   font-size: 12px;
   font-weight: 800;
   color: #5b21b6;
 }
 
 .game-stage {
-  min-height: 200px;
+  min-height: 220px;
   background: linear-gradient(180deg, #fcfaff 0%, #f8f5ff 100%);
   border: 1.5px dashed #dfd1f7;
   border-radius: 18px;
@@ -528,8 +446,8 @@ textarea:focus, select:focus, input[type="text"]:focus {
 }
 
 .orb-btn {
-  width: 158px;
-  height: 158px;
+  width: 164px;
+  height: 164px;
   border-radius: 50%;
   border: none;
   color: #fff;
@@ -615,7 +533,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
   border: 1.5px solid #a7f3d0;
   border-radius: var(--radius);
   padding: 20px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
   box-shadow: var(--shadow);
   animation: fadeIn 0.28s ease;
 }
@@ -635,14 +553,14 @@ textarea:focus, select:focus, input[type="text"]:focus {
   margin-bottom: 8px;
 }
 
-.science-note {
+.cloud-note {
   margin-top: 12px;
-  padding: 10px 13px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid #e9ddff;
-  font-size: 12px;
-  color: var(--muted);
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #fbcfe8;
+  font-size: 13px;
+  color: var(--text);
 }
 
 .unlocked-grid {
@@ -701,30 +619,32 @@ textarea:focus, select:focus, input[type="text"]:focus {
 .radar-wrap {
   display: grid;
   place-items: center;
-  padding: 8px 0;
+  padding: 6px 0;
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
   border-bottom: 1px solid #f1eafc;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .stat-row:last-child { border-bottom: none; }
-.stat-val { font-family: var(--mono); font-weight: 800; color: #5b21b6; }
 
-.hash-box {
-  font-family: var(--mono);
-  font-size: 11px;
-  word-break: break-all;
-  background: #faf5ff;
-  border: 1px solid #e9d5ff;
-  padding: 10px 12px;
-  border-radius: 12px;
-  color: #6d28d9;
-  margin-top: 8px;
+.stat-label {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.stat-val {
+  font-family: var(--font);
+  font-weight: 800;
+  color: #5b21b6;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .hidden { display: none !important; }
@@ -736,22 +656,16 @@ textarea:focus, select:focus, input[type="text"]:focus {
     <div class="header-row">
       <div class="brand">
         <div class="brand-icon">T</div>
-        <div>
-          <div class="brand-title">Tipo — Pastel Mind &amp; Paper Decoder</div>
-          <div class="brand-sub">CMTE + Stylometry + Motor Kinematics</div>
-        </div>
+        <div class="brand-title">Tipo</div>
       </div>
-      <div id="topStatusBanner" class="status-banner">Live passive capture active — Pick baseline or play!</div>
-      <div class="live-chips">
-        <span class="chip">Keys: <span id="hdrKeys">0</span></span>
-        <span class="chip mint">IKI: <span id="hdrIki">--</span> ms</span>
-      </div>
+      <button id="installAppBtn" class="install-btn" onclick="triggerInstallApp()">Install App</button>
     </div>
+    <div id="installToast" class="install-toast hidden"></div>
     <nav class="tab-bar" role="tablist">
-      <button class="tab-btn active" data-tab="profile">1. Profile</button>
-      <button class="tab-btn" data-tab="games">2. 10s Games</button>
-      <button class="tab-btn" data-tab="paper">3. Paper Trick</button>
-      <button class="tab-btn" data-tab="readout">4. Full Readout</button>
+      <button class="tab-btn active" data-tab="profile">Profile</button>
+      <button class="tab-btn" data-tab="games">Games</button>
+      <button class="tab-btn" data-tab="paper">Paper</button>
+      <button class="tab-btn" data-tab="readout">Readout</button>
     </nav>
   </div>
 </header>
@@ -759,48 +673,28 @@ textarea:focus, select:focus, input[type="text"]:focus {
 <main class="container">
   <section id="tab-profile" class="tab-panel active">
     <div class="card">
-      <div class="live-pill"><span class="pulse-dot"></span> Live Assessment Active — Tracking Keystrokes &amp; Micro-Timing</div>
       <h1>Let's read the hidden patterns in how you move, type &amp; write.</h1>
       <p class="subcopy">
-        This page quietly measures your raw typing cadence, key-hold dwell time, pause burstiness, and selection speed with spellcheck and autocorrect disabled.
-        Pick your details below, play <strong>10-second games</strong>, or jump straight to the <strong>Paper Writing Trick</strong>.
+        Type a quick sentence below, pick your details, then jump into the micro-games or the Paper Trick.
       </p>
 
       <div class="wave-box">
         <div class="wave-head">
-          <span>Live Typing &amp; Rhythm Waveform</span>
+          <span>Live Rhythm Waveform</span>
           <span id="cadenceBadge" class="chip">Listening...</span>
         </div>
         <div id="waveBars" class="wave-bars"></div>
       </div>
 
-      <label class="field-label" for="warmupInput">Quick Warm-Up (raw keyboard typing — predictive text suppressed):</label>
-      <textarea id="warmupInput" rows="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Type any natural sentence directly without predictive bar taps..."></textarea>
-
-      <div class="metric-strip">
-        <span class="chip">Dwell: <span id="mDwell">--</span> ms</span>
-        <span class="chip sky">Burstiness B: <span id="mBurst">--</span></span>
-        <span class="chip rose">Self-Edit Rate: <span id="mEdit">0.0%</span></span>
-        <span class="chip mint">Word Len: <span id="mWordLen">--</span></span>
-      </div>
-
-      <div class="ink-pad-wrap">
-        <div class="ink-pad-head">
-          <label class="field-label" style="margin:0;">S-Pen Persistent Ink Pad (ink stays visible — never disappears)</label>
-          <div style="display:flex; gap:8px;">
-            <button type="button" class="btn btn-soft" onclick="clearWarmupInk()">Clear Ink</button>
-            <button type="button" class="btn btn-soft" onclick="sendWarmupInkToPaper()">Analyze Ink in Paper Trick</button>
-          </div>
-        </div>
-        <canvas id="spenWarmupCanvas" class="ink-canvas"></canvas>
-      </div>
+      <label class="field-label" for="warmupInput">Quick Warm-Up (type any sentence naturally):</label>
+      <textarea id="warmupInput" rows="2" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Type any natural sentence here..."></textarea>
     </div>
 
     <div class="card">
       <div class="profile-head">
         <div>
           <h2>Quick Baseline Profile</h2>
-          <p class="subcopy" style="margin:0;">Every question is a simple drop-down — takes 15 seconds.</p>
+          <p class="subcopy" style="margin:0;">Every question is a quick drop-down — takes 15 seconds.</p>
         </div>
         <span id="profileCountPill" class="chip gold">0 / 7 Selected</span>
       </div>
@@ -894,7 +788,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
       </div>
 
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="switchTab('games')">Start 10-Second Micro-Games</button>
+        <button class="btn btn-primary" onclick="switchTab('games')">Start Micro-Games</button>
         <button class="btn btn-mint" onclick="switchTab('paper')">Jump to Paper Trick</button>
       </div>
     </div>
@@ -904,7 +798,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
     <div class="card">
       <div class="game-header">
         <div>
-          <span id="gameBadge" class="game-badge">Micro-Game #1 of 6 · ≤10s</span>
+          <span id="gameBadge" class="game-badge">Micro-Game #1 of 6</span>
           <h2 id="gameTitle">Loading...</h2>
           <p id="gameDesc" class="subcopy" style="margin:0;"></p>
         </div>
@@ -933,11 +827,9 @@ textarea:focus, select:focus, input[type="text"]:focus {
 
   <section id="tab-paper" class="tab-panel">
     <div class="card">
-      <div class="live-pill"><span class="pulse-dot"></span> Client-Side Computer Vision + CMTE 4-Core Syntax</div>
       <h2>The Paper-Writing Mind-Reading Trick</h2>
       <p class="subcopy">
-        Snap a photo of 3-5 handwritten lines, write directly on screen with your S-Pen, or tap <strong>Try Demo Paper</strong>.
-        Leave the text box empty and tap <strong>Deep Cloud AI Read</strong> so Gemini transcribes the sheet automatically and fuses wording with ink geometry from the exact same moment.
+        Have someone write 3-5 natural lines on paper and snap a photo, or tap <strong>Try Demo Paper</strong>. Tipo reads the ink immediately on your device, with an optional Deep Cloud AI Read for full handwriting transcription.
       </p>
 
       <div class="btn-row" style="margin-top:8px;">
@@ -946,33 +838,19 @@ textarea:focus, select:focus, input[type="text"]:focus {
           <input id="paperUpload" type="file" accept="image/*" capture="environment" style="display:none;" />
         </label>
         <button class="btn btn-mint" onclick="runDemoPaper()">Try Demo Paper</button>
-        <button class="btn btn-soft" onclick="togglePaperSpenPad()">Write with S-Pen</button>
-      </div>
-
-      <div id="paperDrawWrap" class="ink-pad-wrap hidden">
-        <div class="ink-pad-head">
-          <label class="field-label" style="margin:0;">Persistent S-Pen Paper Sheet (write 3-5 lines — ink stays on screen)</label>
-          <div style="display:flex; gap:8px;">
-            <button type="button" class="btn btn-soft" onclick="clearPaperInk()">Clear Sheet</button>
-            <button type="button" class="btn btn-mint" onclick="analyzePaperInk()">Lock &amp; Analyze Ink</button>
-          </div>
-        </div>
-        <canvas id="paperDrawCanvas" class="ink-canvas tall"></canvas>
       </div>
 
       <div class="paper-preview-wrap">
         <div id="paperPlaceholder" style="color:var(--muted); font-size:13px; padding: 26px 10px;">
-          No handwriting sheet loaded yet. Snap a photo, tap <strong>Write with S-Pen</strong>, or tap <strong>Try Demo Paper</strong>.
+          No handwriting sheet loaded yet. Snap a photo or tap <strong>Try Demo Paper</strong>.
         </div>
         <canvas id="paperCanvas"></canvas>
       </div>
 
-      <label class="field-label" for="paperText">Written Text (optional — auto-filled by Deep Cloud AI Read; excluded from live keystroke timing):</label>
-      <textarea id="paperText" rows="3" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Leave blank for automatic Gemini transcription, or enter the exact words from the sheet for local syntax fusion..."></textarea>
+      <label class="field-label" for="paperText">Detected Text (optional):</label>
+      <textarea id="paperText" rows="3" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Optional — leave blank or tap Deep Cloud AI Read to auto-transcribe the sheet..."></textarea>
 
       <div class="btn-row" style="margin-top:12px;">
-        <button class="btn btn-soft" onclick="startVoiceDictation()">Dictate Text (UK)</button>
-        <button class="btn btn-soft" onclick="reanalyzePaperText()">Fuse Local CV + Syntax</button>
         <button id="cloudReadBtn" class="btn btn-gold" onclick="runCloudPaperRead()">Deep Cloud AI Read</button>
       </div>
       <div id="cloudStatus" style="font-size:12px; color:var(--muted); margin-top:8px;"></div>
@@ -986,7 +864,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
       <div class="profile-head">
         <div>
           <h2>Full Mind &amp; Motor Readout</h2>
-          <p class="subcopy" style="margin:0;">Deterministic telemetry fused with audit-patched CFX-BRAC load &amp; 6-axis radar.</p>
+          <p class="subcopy" style="margin:0;">Your personal mind, rhythm, and focus profile.</p>
         </div>
         <button class="btn btn-soft" onclick="copyFullReadout()">Copy Readout</button>
       </div>
@@ -996,12 +874,8 @@ textarea:focus, select:focus, input[type="text"]:focus {
           <svg id="radarSvg" viewBox="0 0 320 300" width="310" height="290" aria-label="6-Axis Pastel Radar"></svg>
         </div>
         <div>
-          <h3>Audit-Patched CFX-BRAC &amp; Kinematics</h3>
+          <h3>Your Live Signal Breakdown</h3>
           <div id="readoutStats"></div>
-          <div class="science-note" style="margin-top:14px;">
-            <strong>Observational SHA-256 DOB Overlay (Entertainment Only):</strong>
-            <div id="dobHashBox" class="hash-box">Select your Date of Birth in Tab 1 to compute your deterministic SHA-256 palette fingerprint.</div>
-          </div>
         </div>
       </div>
     </div>
@@ -1009,19 +883,18 @@ textarea:focus, select:focus, input[type="text"]:focus {
     <div class="card">
       <h3>Unlocked Micro-Game &amp; Paper Reveals</h3>
       <div id="readoutReveals" class="unlocked-grid" style="margin-top:12px;">
-        <div class="mini-reveal">Complete micro-games in Tab 2 or run the Paper Trick in Tab 3 to populate your full dossier.</div>
+        <div class="mini-reveal">Complete micro-games or run the Paper Trick to populate your full readout.</div>
       </div>
     </div>
 
     <div id="commercialCard" class="card" style="background: linear-gradient(135deg, #fff7ed, #fdf2f8, #f5f3ff);">
       <h3>Tipo Pro Cloud Pass (99p)</h3>
       <p class="subcopy" style="margin-bottom:12px;">
-        All 6 micro-games, passive keystroke telemetry, client-side Paper CV, and the 6-axis radar run locally forever.
-        Unlock 50 Gemini Vision deep handwriting &amp; subtext reads via Stripe Checkout.
+        All 6 micro-games, instant paper scanning, and your 6-axis radar work right on your device. Unlock 50 Deep Cloud AI handwriting &amp; subtext reads for 99p.
       </p>
       <div class="btn-row" style="margin-top:0;">
         <button class="btn btn-gold" onclick="startStripeCheckout()">Unlock 50 Cloud Reads — £0.99</button>
-        <span id="passStatusChip" class="chip mint" style="align-self:center;">Mode: Local + R&amp;D Open</span>
+        <span id="passStatusChip" class="chip mint hidden" style="align-self:center;"></span>
       </div>
     </div>
   </section>
@@ -1034,6 +907,47 @@ const CONFIG = {
   CHECKOUT_ENDPOINT: "https://qnnnnvlissdqdwmkgrao.supabase.co/functions/v1/create-checkout",
   ENABLE_PAID_GATE: false
 };
+
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById("installAppBtn");
+const installToast = document.getElementById("installToast");
+
+if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true) {
+  installBtn.classList.add("hidden");
+}
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  installBtn.classList.remove("hidden");
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  installBtn.classList.add("hidden");
+  installToast.classList.add("hidden");
+});
+
+async function triggerInstallApp() {
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    const res = await deferredInstallPrompt.userChoice;
+    if (res && res.outcome === "accepted") {
+      installBtn.classList.add("hidden");
+    }
+    deferredInstallPrompt = null;
+    return;
+  }
+  installToast.textContent = "To install Tipo as a home screen app, tap your browser menu and select Add to Home screen or Install app.";
+  installToast.classList.remove("hidden");
+  setTimeout(() => installToast.classList.add("hidden"), 6500);
+}
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
 
 const state = {
   keys: 0,
@@ -1065,7 +979,9 @@ const state = {
 
 if (state.decodeSessionId) {
   localStorage.setItem("tipo_session_id", state.decodeSessionId);
-  document.getElementById("passStatusChip").textContent = "Pass Active: " + state.decodeSessionId.slice(0, 10) + "...";
+  const chip = document.getElementById("passStatusChip");
+  chip.textContent = "Cloud Pass Active";
+  chip.classList.remove("hidden");
 }
 
 function round(n, d = 2) {
@@ -1141,6 +1057,21 @@ function analyzeSyntaxCMTE(rawText) {
   return { words: wCnt, meanWlen: round(meanWlen, 2), ttr: round(ttr, 2), wPerS: round(wPerS, 1), hedges, modals, p1, p2, cmtePrecision, cmteNesting, cmteAffect, cmteLoad };
 }
 
+function getProfileSummary() {
+  const p = state.profile;
+  const parts = [];
+  if (p.heightCm && Number(document.getElementById("pHeight").value)) {
+    const delta = Math.round((p.heightCm - 170) * 0.13);
+    parts.push(delta > 0 ? `Height +${delta}ms path` : delta < 0 ? `Height ${delta}ms path` : "Standard height");
+  }
+  if (p.siblings) parts.push(p.siblings);
+  if (p.year) {
+    const age = new Date().getFullYear() - Number(p.year);
+    if (age > 8 && age < 110) parts.push(`Age ${age}`);
+  }
+  return parts.length ? parts.join(" · ") : "Default calibration";
+}
+
 const waveBarsEl = document.getElementById("waveBars");
 const WAVE_COUNT = 34;
 const waveColors = ["#f472b6", "#e879f9", "#c084fc", "#a78bfa", "#818cf8", "#60a5fa", "#38bdf8", "#2dd4bf", "#34d399"];
@@ -1157,7 +1088,7 @@ for (let i = 0; i < WAVE_COUNT; i++) {
 function pulseWaveform(intensity = 1) {
   for (let i = 0; i < waveBars.length; i++) {
     const wave = Math.sin((Date.now() / 160) + i * 0.45) * 0.5 + 0.5;
-    const h = clamp(8 + wave * 28 * intensity + Math.random() * 8 * intensity, 6, 42);
+    const h = clamp(8 + wave * 24 * intensity + Math.random() * 6 * intensity, 6, 38);
     waveBars[i].style.height = h.toFixed(0) + "px";
   }
 }
@@ -1221,19 +1152,10 @@ document.addEventListener("beforeinput", (e) => {
 document.getElementById("warmupInput").addEventListener("input", () => updateLiveMetricsUI());
 
 function updateLiveMetricsUI() {
-  document.getElementById("hdrKeys").textContent = state.keys;
   const avgIki = state.ikiList.length ? Math.round(mean(state.ikiList)) : null;
-  document.getElementById("hdrIki").textContent = avgIki !== null ? avgIki : "--";
-  const avgDwell = state.dwellList.length ? Math.round(mean(state.dwellList)) : null;
-  document.getElementById("mDwell").textContent = avgDwell !== null ? avgDwell : "--";
   const bn = kimJoBurstiness(state.ikiList);
-  document.getElementById("mBurst").textContent = bn !== null ? round(bn, 2).toFixed(2) : "--";
-  const editPct = state.keys > 0 ? round((state.backspaces / state.keys) * 100, 1) : 0;
-  document.getElementById("mEdit").textContent = editPct.toFixed(1) + "%";
-
   const warmupText = document.getElementById("warmupInput").value;
   const syn = analyzeSyntaxCMTE(warmupText);
-  document.getElementById("mWordLen").textContent = syn.words > 0 ? syn.meanWlen.toFixed(2) : "--";
   if (syn.words >= 3) {
     state.scores.syntax = Math.round(clamp(syn.cmtePrecision * 100, 25, 98));
   }
@@ -1242,193 +1164,12 @@ function updateLiveMetricsUI() {
   if (state.ikiList.length < 3) {
     badge.textContent = "Listening...";
   } else if (bn !== null && bn > 0.25) {
-    badge.textContent = "Bursty Sprint Cadence";
+    badge.textContent = "Bursty Sprint Flow";
   } else if (avgIki < 175) {
     badge.textContent = "High-Velocity Flow";
   } else {
-    badge.textContent = "Steady Rhythmic Cadence";
+    badge.textContent = "Steady Rhythm";
   }
-}
-
-function createPersistentInkPad(canvas) {
-  const ctx = canvas.getContext("2d");
-  const strokes = [];
-  let drawing = false;
-  let activePointer = null;
-  let currentStroke = null;
-  let initialized = false;
-
-  function drawNotebookBackground(w, h) {
-    ctx.fillStyle = "#faf7ef";
-    ctx.fillRect(0, 0, w, h);
-    ctx.strokeStyle = "rgba(96, 165, 250, 0.26)";
-    ctx.lineWidth = 1;
-    const step = 36;
-    for (let y = step; y < h; y += step) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(w, y);
-      ctx.stroke();
-    }
-    ctx.strokeStyle = "rgba(244, 114, 182, 0.28)";
-    ctx.beginPath();
-    ctx.moveTo(42, 0);
-    ctx.lineTo(42, h);
-    ctx.stroke();
-  }
-
-  function redrawAll() {
-    const rect = canvas.getBoundingClientRect();
-    const w = Math.max(300, Math.round(rect.width || 640));
-    const h = Math.max(140, Math.round(rect.height || 170));
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-    }
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    drawNotebookBackground(w, h);
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.strokeStyle = "#141b2d";
-    for (const s of strokes) {
-      if (s.length === 1) {
-        ctx.fillStyle = "#141b2d";
-        ctx.beginPath();
-        ctx.arc(s[0].x, s[0].y, Math.max(1.4, s[0].w * 0.5), 0, Math.PI * 2);
-        ctx.fill();
-        continue;
-      }
-      for (let i = 1; i < s.length; i++) {
-        ctx.lineWidth = s[i].w;
-        ctx.beginPath();
-        ctx.moveTo(s[i - 1].x, s[i - 1].y);
-        ctx.lineTo(s[i].x, s[i].y);
-        ctx.stroke();
-      }
-    }
-    initialized = true;
-  }
-
-  function getPoint(e) {
-    const rect = canvas.getBoundingClientRect();
-    const pressure = e.pressure && e.pressure > 0 ? e.pressure : 0.45;
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      w: clamp(1.7 + pressure * 2.6, 1.6, 4.8)
-    };
-  }
-
-  canvas.addEventListener("pointerdown", (e) => {
-    e.preventDefault();
-    if (!initialized) redrawAll();
-    drawing = true;
-    activePointer = e.pointerId;
-    if (canvas.setPointerCapture) {
-      try { canvas.setPointerCapture(e.pointerId); } catch {}
-    }
-    const pt = getPoint(e);
-    currentStroke = [pt];
-    strokes.push(currentStroke);
-    ctx.fillStyle = "#141b2d";
-    ctx.beginPath();
-    ctx.arc(pt.x, pt.y, pt.w * 0.5, 0, Math.PI * 2);
-    ctx.fill();
-    pulseWaveform(0.95);
-  });
-
-  canvas.addEventListener("pointermove", (e) => {
-    if (!drawing || e.pointerId !== activePointer || !currentStroke) return;
-    e.preventDefault();
-    const events = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.strokeStyle = "#141b2d";
-    for (const ev of events) {
-      const pt = getPoint(ev);
-      const prev = currentStroke[currentStroke.length - 1];
-      ctx.lineWidth = pt.w;
-      ctx.beginPath();
-      ctx.moveTo(prev.x, prev.y);
-      ctx.lineTo(pt.x, pt.y);
-      ctx.stroke();
-      currentStroke.push(pt);
-    }
-  });
-
-  function stopStroke(e) {
-    if (!drawing || (e && e.pointerId !== activePointer)) return;
-    drawing = false;
-    activePointer = null;
-    currentStroke = null;
-  }
-
-  canvas.addEventListener("pointerup", stopStroke);
-  canvas.addEventListener("pointercancel", stopStroke);
-  window.addEventListener("resize", () => { if (initialized) redrawAll(); });
-  requestAnimationFrame(redrawAll);
-
-  return {
-    redraw: redrawAll,
-    clear() {
-      strokes.length = 0;
-      redrawAll();
-    },
-    hasInk() {
-      return strokes.length > 0;
-    },
-    toDataURL() {
-      return canvas.toDataURL("image/jpeg", 0.92);
-    }
-  };
-}
-
-const warmupInkPad = createPersistentInkPad(document.getElementById("spenWarmupCanvas"));
-const paperInkPad = createPersistentInkPad(document.getElementById("paperDrawCanvas"));
-
-function clearWarmupInk() {
-  warmupInkPad.clear();
-}
-
-function sendWarmupInkToPaper() {
-  if (!warmupInkPad.hasInk()) {
-    alert("Write a line on the S-Pen ink pad first.");
-    return;
-  }
-  const url = warmupInkPad.toDataURL();
-  switchTab("paper");
-  document.getElementById("paperText").value = "";
-  state.paperCloud = null;
-  document.getElementById("cloudStatus").textContent = "";
-  const img = new Image();
-  img.onload = () => processHandwritingImage(img, "image/jpeg", false);
-  img.src = url;
-}
-
-function togglePaperSpenPad() {
-  const wrap = document.getElementById("paperDrawWrap");
-  wrap.classList.toggle("hidden");
-  if (!wrap.classList.contains("hidden")) {
-    requestAnimationFrame(() => paperInkPad.redraw());
-  }
-}
-
-function clearPaperInk() {
-  paperInkPad.clear();
-}
-
-function analyzePaperInk() {
-  if (!paperInkPad.hasInk()) {
-    alert("Write 2 to 5 lines on the S-Pen sheet first.");
-    return;
-  }
-  document.getElementById("paperText").value = "";
-  state.paperCloud = null;
-  document.getElementById("cloudStatus").textContent = "";
-  const img = new Image();
-  img.onload = () => processHandwritingImage(img, "image/jpeg", false);
-  img.src = paperInkPad.toDataURL();
 }
 
 (function populateDOB() {
@@ -1479,35 +1220,12 @@ function syncProfile() {
   const pill = document.getElementById("profileCountPill");
   pill.textContent = `${count} / 7 Selected`;
   pill.className = count === 7 ? "chip mint" : "chip gold";
-  if (count >= 3) {
-    document.getElementById("topStatusBanner").textContent = "Baseline locked! Ready for your 10-second games";
-    updateDobHash();
-  }
 }
 
 window.addEventListener("pageshow", () => {
   syncProfile();
   updateLiveMetricsUI();
-  warmupInkPad.redraw();
 });
-
-async function updateDobHash() {
-  const p = state.profile;
-  const box = document.getElementById("dobHashBox");
-  if (!p.day || !p.month || !p.year) return;
-  const seed = `${p.year}-${String(p.month).padStart(2, "0")}-${String(p.day).padStart(2, "0")}|${p.birthplace || "earth"}`;
-  try {
-    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(seed));
-    const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-    const hue = parseInt(hex.slice(0, 4), 16) % 360;
-    const archetypes = ["Quiet Architect", "Kinetic Catalyst", "Pattern Cartographer", "Signal Synthesizer", "Precision Weaver", "Calm Strategist"];
-    const arch = archetypes[parseInt(hex.slice(4, 6), 16) % archetypes.length];
-    box.innerHTML = `<div><strong>SHA-256 Seed:</strong> ${hex.slice(0, 32)}...</div>
-      <div style="margin-top:4px;"><strong>Pastel Signature:</strong> <span style="display:inline-block; width:11px; height:11px; border-radius:50%; background:hsl(${hue}, 75%, 72%); vertical-align:middle;"></span> Hue ${hue}° · Archetype Tag: <strong>${arch}</strong> (non-empirical cryptographic hash)</div>`;
-  } catch {
-    box.textContent = "Seed locked: " + seed;
-  }
-}
 
 function switchTab(name) {
   cleanupActiveGame();
@@ -1518,9 +1236,6 @@ function switchTab(name) {
   }
   if (name === "readout") {
     renderReadout();
-  }
-  if (name === "profile") {
-    requestAnimationFrame(() => warmupInkPad.redraw());
   }
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1584,13 +1299,9 @@ function saveReveal(gameId, data) {
     <div class="reveal-tag">Measured Reveal</div>
     <h2 style="margin-bottom:8px;">${data.headline}</h2>
     <p style="margin:0 0 12px; font-size:14px;">${data.body}</p>
-    <div class="metric-strip" style="margin-top:0;">
-      ${data.pills.map((p, i) => `<span class="chip ${["", "mint", "sky", "rose"][i % 4]}">${p}</span>`).join("")}
-    </div>
-    <div class="science-note"><strong>Why this is actually determinable:</strong> ${data.science}</div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="shuffleGame()">Next Random 10s Game</button>
-      <button class="btn btn-mint" onclick="switchTab('paper')">Try Paper Writing Trick</button>
+      <button class="btn btn-primary" onclick="shuffleGame()">Next Random Game</button>
+      <button class="btn btn-mint" onclick="switchTab('paper')">Try Paper Trick</button>
     </div>
   `;
   renderUnlockedGrid();
@@ -1615,7 +1326,7 @@ function loadGame(gameId) {
   currentGameId = gameId;
   document.getElementById("activeRevealBox").classList.add("hidden");
   const idx = GAME_ORDER.indexOf(gameId) + 1;
-  document.getElementById("gameBadge").textContent = `Micro-Game #${idx} of 6 · ≤10s`;
+  document.getElementById("gameBadge").textContent = `Micro-Game #${idx} of 6`;
   const stage = document.getElementById("gameStage");
   stage.innerHTML = "";
   setTimerRing(1, 1, "Ready");
@@ -1630,10 +1341,10 @@ function loadGame(gameId) {
 
 function initTimeMirage(stage) {
   document.getElementById("gameTitle").textContent = "The 4-Second Time Mirage";
-  document.getElementById("gameDesc").textContent = "Press & HOLD the pastel cloud (or Spacebar), then release when you FEEL exactly 4.0 seconds have passed. Don't count numbers — feel it!";
+  document.getElementById("gameDesc").textContent = "Press & HOLD the pastel cloud, then release when you FEEL exactly 4.0 seconds have passed. Don't count — feel it!";
   stage.innerHTML = `
     <button id="holdCloud" class="hold-cloud">HOLD FOR 4 SECONDS</button>
-    <div id="mirageHint" style="font-size:12px; color:var(--muted);">Timer is hidden while you hold so we can measure your raw internal clock.</div>
+    <div id="mirageHint" style="font-size:12px; color:var(--muted);">Timer stays hidden while you hold to read your natural internal clock.</div>
   `;
   const btn = document.getElementById("holdCloud");
   const hint = document.getElementById("mirageHint");
@@ -1672,22 +1383,17 @@ function initTimeMirage(stage) {
 
     let headline, body;
     if (heldSec > 4.4) {
-      headline = `Time-Compressor Brain: A 10-Minute Wait Only Feels Like ${queueFeel.toFixed(1)} Minutes!`;
-      body = `You released at ${heldSec.toFixed(2)} seconds (+${(heldSec - 4).toFixed(2)}s from 4.00s). Releasing late reveals time-compression — your internal clock ticks gently, which makes you naturally prone to losing track of time when absorbed in something interesting.`;
+      headline = `Deep-Focus Time Bender (10 Minutes Feels Like ${queueFeel.toFixed(1)}!)`;
+      body = `You released at ${heldSec.toFixed(2)} seconds. Your mind runs in a calm, unhurried groove — once you lock onto something interesting, hours disappear effortlessly while everyone else watches the clock.`;
     } else if (heldSec < 3.6) {
-      headline = `Time-Expander Brain: A 10-Minute Wait Feels Like ${queueFeel.toFixed(1)} Minutes!`;
-      body = `You released at ${heldSec.toFixed(2)} seconds (${(heldSec - 4).toFixed(2)}s early). Early release indicates a faster internal pacemaker — you spot micro-delays quickly and feel impatient in slow queues.`;
+      headline = `High-Speed Internal Pacemaker (${heldSec.toFixed(2)}s Release!)`;
+      body = `You released at ${heldSec.toFixed(2)} seconds. Your internal clock runs quick and sharp — you catch delays early, think two steps ahead, and notice slow moments long before other people do.`;
     } else {
       headline = `Atomic-Clock Timekeeper (Only ${(err * 1000).toFixed(0)} ms Off!)`;
-      body = `You released at ${heldSec.toFixed(2)} seconds — remarkably close to a true 4.00s span. Your internal pacemaker stays tightly synchronized with objective wall time.`;
+      body = `You released at ${heldSec.toFixed(2)} seconds — remarkably close to a true 4.00s span. Your internal sense of timing stays dialed in with rare precision.`;
     }
 
-    saveReveal("mirage", {
-      headline,
-      body,
-      pills: [`Hold: ${heldSec.toFixed(2)}s`, `Clock Ratio: ${clockRatio.toFixed(2)}x`, `10m Queue ≈ ${queueFeel.toFixed(1)}m`],
-      science: "Interval psychophysics (Gibbon's Scalar Expectancy Theory): prospective time production tasks directly measure the speed of an individual's internal dopaminergic pacemaker."
-    });
+    saveReveal("mirage", { headline, body });
   }
 
   const onCtx = e => e.preventDefault();
@@ -1709,7 +1415,7 @@ function initTimeMirage(stage) {
 
 function initBiasRibbon(stage) {
   document.getElementById("gameTitle").textContent = "The Hidden Bias Ribbon";
-  document.getElementById("gameDesc").textContent = "Tap the EXACT visual center of each pastel bar as quickly as you can! (4 quick rounds — 8s starts on first tap)";
+  document.getElementById("gameDesc").textContent = "Tap the EXACT visual center of each bar as quickly as you can! (4 quick rounds)";
   const widths = [88, 74, 92, 80];
   const offsets = [0, 12, -10, 6];
   let roundIdx = 0;
@@ -1725,7 +1431,7 @@ function initBiasRibbon(stage) {
       <div class="ribbon-track" style="justify-content:center;">
         <div id="ribbonBar" class="ribbon-bar" style="width:${w}%; transform:translateX(${ml}px);"></div>
       </div>
-      <div style="font-size:12px; color:var(--muted);">Trust your first visual glance — don't measure with fingers!</div>
+      <div style="font-size:12px; color:var(--muted);">Trust your first glance!</div>
     `;
     const bar = document.getElementById("ribbonBar");
     bar.addEventListener("pointerdown", (e) => {
@@ -1759,30 +1465,22 @@ function initBiasRibbon(stage) {
     setTimerRing(0, 8, "Done");
     const avgSkew = skews.length ? mean(skews) : 0;
     const absSkew = Math.abs(avgSkew);
-    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Measured spatial skew: ${avgSkew.toFixed(2)}%</div>`;
+    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Spatial check complete!</div>`;
     state.scores.spatial = Math.round(clamp(100 - absSkew * 12, 30, 99));
 
-    let headline, body, focusTag;
+    let headline, body;
     if (absSkew <= 1.2) {
-      headline = `Laser-Calibrated Spatial Symmetry (${absSkew.toFixed(1)}% Deviation!)`;
-      body = `Across ${skews.length} midpoints, your average error from true geometric center was just ${absSkew.toFixed(2)}% — showing unusually balanced bilateral parietal attention. You likely spot crooked picture frames, furniture alignment, and cuts without a ruler far better than average.`;
-      focusTag = "DEAD-CENTER";
+      headline = `Laser-Calibrated Eye (${absSkew.toFixed(1)}% Off True Center!)`;
+      body = `Across ${skews.length} quick hits, you landed almost dead-on geometric center every time. You naturally spot crooked picture frames, uneven margins, and off-balance layouts without needing a ruler.`;
     } else if (avgSkew < -1.2) {
-      headline = `Classic Right-Parietal 'Pseudoneglect' (${absSkew.toFixed(1)}% Left Skew)`;
-      body = `Even when aiming for dead center, your brain pulled ${absSkew.toFixed(1)}% to the LEFT. That's classic right-hemisphere spatial dominance: your eyes unconsciously overweight the left visual hemifield — meaning when you open a menu, website, or bookshelf, you systematically anchor on the upper-left zone first.`;
-      focusTag = "LEFT-ANCHORED";
+      headline = `Left-Side Visual Anchor (${absSkew.toFixed(1)}% Left Pull)`;
+      body = `Even when aiming straight for the middle, your eye quietly favored the left side. When you walk into a room or glance at a menu, your attention naturally locks onto the upper-left zone first.`;
     } else {
-      headline = `Rightward Spatial Anchor (${absSkew.toFixed(1)}% Right Skew)`;
-      body = `Your midpoints pulled ${absSkew.toFixed(1)}% to the RIGHT of true geometric center. That rightward bias suggests stronger left-hemisphere analytical scanning and a habit of sweeping toward the action/right side of a layout.`;
-      focusTag = "RIGHT-ANCHORED";
+      headline = `Rightward Action Scanner (${absSkew.toFixed(1)}% Right Pull)`;
+      body = `Your midpoints leaned slightly to the right of dead center — a classic signature of someone who scans fast toward outcomes, next steps, and the action side of any layout.`;
     }
 
-    saveReveal("ribbon", {
-      headline,
-      body,
-      pills: [`Mean Skew: ${avgSkew.toFixed(2)}%`, `Visual Focus: ${focusTag}`, `Rounds: ${skews.length}`],
-      science: "The Landmark / Line Bisection task is a classic cognitive neuroscience probe for hemispheric spatial attention ('pseudoneglect'; Jewell & McCourt 2000), revealing subtle right vs left-parietal balance."
-    });
+    saveReveal("ribbon", { headline, body });
   }
 
   renderBar();
@@ -1790,7 +1488,7 @@ function initBiasRibbon(stage) {
 
 function initReflexGame(stage) {
   document.getElementById("gameTitle").textContent = "Blink-of-an-Eye Reflex";
-  document.getElementById("gameDesc").textContent = "Tap ONLY when the orb flashes MINT GREEN ('GO!'). Freeze if it flashes CORAL ('WAIT!') — 9 seconds!";
+  document.getElementById("gameDesc").textContent = "Tap ONLY when the circle flashes MINT GREEN ('GO!'). Freeze if it flashes CORAL ('WAIT!').";
   stage.innerHTML = `<button id="reflexOrb" class="orb-btn orb-hold"><span>TAP TO START</span><small style="font-weight:600; opacity:.9;">Watch closely</small></button>`;
   const orb = document.getElementById("reflexOrb");
   let phase = "idle";
@@ -1838,7 +1536,7 @@ function initReflexGame(stage) {
     cleanupActiveGame();
     setTimerRing(0, 9, "Done");
     const meanRt = rts.length ? Math.round(mean(rts)) : 420;
-    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Reflex scan complete! Mean RT: ${meanRt} ms</div>`;
+    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Reflex scan complete!</div>`;
 
     const heightCm = state.profile.heightCm || 170;
     const axonDeltaMs = Math.round((heightCm - 170) * 0.13);
@@ -1846,16 +1544,14 @@ function initReflexGame(stage) {
     const feet70 = meters70 * 3.28084;
     state.scores.reflex = Math.round(clamp(115 - (meanRt - 180) * 0.16 - noGoFails * 8, 25, 99));
 
-    const archetype = meanRt < 260 ? "Hair-Trigger Interceptor" : meanRt < 370 ? "Balanced Tactical Reflex" : "Precision Verifier";
-    const axonNote = axonDeltaMs === 0
-      ? `At ${heightCm} cm, your optic-to-spinal nerve path matches the 170 cm baseline.`
-      : `Factoring in your selected height (${heightCm} cm), your physical optic-to-spinal nerve path ${axonDeltaMs > 0 ? "adds" : "subtracts"} roughly ${Math.abs(axonDeltaMs)} ms compared to a 170 cm baseline.`;
+    const archetype = meanRt < 260 ? "Hair-Trigger Interceptor" : meanRt < 370 ? "Balanced Tactical Reflex" : "Calm Precision Verifier";
+    const heightLine = axonDeltaMs === 0
+      ? ""
+      : ` Even accounting for your height (${heightCm} cm), your signal travelled clean and fast.`;
 
     saveReveal("reflex", {
-      headline: `At 70 mph, You Travel ${meters70.toFixed(1)} m (${Math.round(feet70)} ft) Before Your Foot Moves`,
-      body: `Your measured visual-motor reaction time is ${meanRt} ms, classifying you as a ${archetype}. ${axonNote}`,
-      pills: [`Mean RT: ${meanRt} ms`, `70 mph Gap: ${meters70.toFixed(1)} m`, `False Starts: ${falseStarts}`, `No-Go Saves: ${noGoSaves}`],
-      science: "Simple visual-motor reaction time (typically 220-360 ms) directly determines real-world reaction distance at highway velocity (31.3 m/s), while Go/No-Go trials measure prefrontal inhibitory gating."
+      headline: `At 70 mph, You React in Just ${meters70.toFixed(1)} m (${Math.round(feet70)} ft)!`,
+      body: `You locked in a ${meanRt} ms response speed as a ${archetype}, with ${noGoSaves} clean freeze saves.${heightLine}`
     });
   }
 
@@ -1878,10 +1574,10 @@ function initReflexGame(stage) {
 
 function initMetronome(stage) {
   document.getElementById("gameTitle").textContent = "The Invisible Metronome";
-  document.getElementById("gameDesc").textContent = "Tap the pastel orb (or press Spacebar) at whatever steady rhythm feels most naturally effortless to you. Don't rush — 8s starts on your first tap!";
+  document.getElementById("gameDesc").textContent = "Tap the pastel circle to whatever regular beat feels naturally good to you.";
   stage.innerHTML = `
     <button id="metroOrb" class="orb-btn orb-metro"><span>TAP BEAT</span><small id="metroCnt" style="font-weight:600;">0 taps</small></button>
-    <div style="font-size:12px; color:var(--muted);">Tap or press Space at your natural speed</div>
+    <div style="font-size:12px; color:var(--muted);">Just tap at your own natural speed</div>
   `;
   const orb = document.getElementById("metroOrb");
   const cntEl = document.getElementById("metroCnt");
@@ -1914,18 +1610,14 @@ function initMetronome(stage) {
       if (dt >= 140 && dt <= 2400) intervals.push(dt);
     }
     const avgIti = intervals.length ? mean(intervals) : 540;
-    const hz = 1000 / avgIti;
     const bpm = Math.round(60000 / avgIti);
     const cv = intervals.length >= 2 ? (stdDev(intervals) / avgIti) * 100 : 6.0;
-    const strideKmh = clamp((bpm / 115) * 5.5, 3.3, 7.2);
     state.scores.motor = Math.round(clamp(96 - cv * 2.2, 35, 98));
-    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Beat captured! (${taps.length} taps recorded)</div>`;
+    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Beat captured!</div>`;
 
     saveReveal("metronome", {
-      headline: `Your Hidden Internal Tempo is ${bpm} BPM (~${strideKmh.toFixed(1)} km/h Stride!)`,
-      body: `Without any music playing, your nervous system settled on a spontaneous motor frequency of ${hz.toFixed(2)} Hz (${bpm} beats per minute). That locks directly to your natural unrushed walking cadence and predicts your brain clicks into effortless flow with ${Math.max(60, bpm - 10)}-${bpm + 10} BPM tracks — and your timing consistency jitter was just ${cv.toFixed(1)}%.`,
-      pills: [`SMT: ${hz.toFixed(2)} Hz`, `Flow Zone: ${Math.max(60, bpm - 10)}-${bpm + 10} BPM`, `Jitter CV: ${cv.toFixed(1)}%`, `Taps: ${taps.length}`],
-      science: "Sensorimotor synchronization research (McAuley et al. 2006) shows each person has a stable endogenous cerebellar/basal-ganglia oscillator ('Spontaneous Motor Tempo') that correlates strongly with natural walking frequency and preferred music tempo."
+      headline: `Your Hidden Internal Tempo is ${bpm} BPM`,
+      body: `Without any music playing, your natural rhythm settled straight onto ${bpm} beats per minute — meaning your brain drops into effortless flow with ${Math.max(60, bpm - 10)}-${bpm + 10} BPM tracks, holding steady with only ${cv.toFixed(1)}% drift.`
     });
   }
 
@@ -1937,7 +1629,7 @@ function initMetronome(stage) {
 
 function initStroop(stage) {
   document.getElementById("gameTitle").textContent = "Split-Second Word Magnet";
-  document.getElementById("gameDesc").textContent = "Tap the button matching the INK COLOR — ignore what the word spells! 9s starts on your first answer.";
+  document.getElementById("gameDesc").textContent = "Tap the button matching the INK COLOR — ignore what the word spells!";
   const palette = [
     { name: "ROSE", hex: "#e11d48", cls: "stroop-rose" },
     { name: "MINT", hex: "#059669", cls: "stroop-mint" },
@@ -2002,21 +1694,16 @@ function initStroop(stage) {
     const iMean = incongRT.length ? mean(incongRT) : cMean + 75;
     const delta = Math.round(clamp(iMean - cMean, -150, 900));
     state.scores.stroop = Math.round(clamp(acc * 0.75 + clamp(25 - Math.max(0, delta) * 0.08, 0, 25), 25, 99));
-    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Stroop complete! ${correct}/${total} correct (${acc}%)</div>`;
+    stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">${correct}/${total} correct (${acc}%)</div>`;
 
     const headline = delta <= 90
-      ? `Balanced Dual-Channel Filter (${delta >= 0 ? "+" : ""}${delta} ms Stroop Cost)`
-      : `Involuntary Hyper-Reader (+${delta} ms Word-Magnet Pull)`;
+      ? `Razor-Sharp Focus Filter (${acc}% Accuracy!)`
+      : `Hyper-Speed Reader (${acc}% Accuracy!)`;
     const body = delta <= 90
-      ? `You scored ${acc}% accuracy across ${total} trials with a compact ${delta} ms interference cost — showing a strong reading habit cleanly paired with agile executive conflict resolution.`
-      : `Your reading circuit fires so automatically that mismatched words pulled your color response by +${delta} ms (${acc}% accuracy across ${total} trials) — classic hyper-automated lexical lock.`;
+      ? `You stayed calm under clashing cues and hit ${acc}% accuracy across ${total} rapid rounds — effortlessly tuning out distractions when the pressure is on.`
+      : `Your reading brain locks onto words almost instantaneously, while still pulling off ${acc}% accuracy across ${total} rapid-fire clashes.`;
 
-    saveReveal("stroop", {
-      headline,
-      body,
-      pills: [`Accuracy: ${acc}%`, `Stroop Cost: ${delta} ms`, `Trials: ${total}`],
-      science: "The Stroop Color-Word paradigm quantifies anterior cingulate conflict monitoring and automatic lexical dominance over perceptual color naming."
-    });
+    saveReveal("stroop", { headline, body });
   }
 
   nextTrial();
@@ -2031,11 +1718,11 @@ function initMicroScribe(stage) {
     "You can pause time for 10 seconds once a day — what's your first move?"
   ];
   const prompt = prompts[Math.floor(Math.random() * prompts.length)];
-  document.getElementById("gameDesc").textContent = "Tap the box and type freely — your 9-second clock waits until your VERY FIRST keystroke!";
+  document.getElementById("gameDesc").textContent = "Tap the box and type freely — your clock starts on your very first letter!";
   stage.innerHTML = `
     <div style="font-size:14px; font-weight:700; color:#4c1d95;">${prompt}</div>
-    <textarea id="scribeBox" rows="3" style="max-width:520px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Tap here & start typing — 9s starts on first key..."></textarea>
-    <div id="scribeStatus" style="font-size:12px; color:var(--muted);">Waiting for first keystroke — Tracking flight, dwell, backspaces &amp; word register...</div>
+    <textarea id="scribeBox" rows="3" style="max-width:520px;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Tap here & start typing..."></textarea>
+    <div id="scribeStatus" style="font-size:12px; color:var(--muted);">Waiting for your first letter...</div>
   `;
   const box = document.getElementById("scribeBox");
   const status = document.getElementById("scribeStatus");
@@ -2062,7 +1749,7 @@ function initMicroScribe(stage) {
     if (!started) {
       started = true;
       firstKeyTs = now;
-      status.textContent = "Capturing live keystroke kinematics...";
+      status.textContent = "Capturing your rhythm...";
       startCountdown(9.0, finishScribe);
     } else if (lastTs !== null) {
       const dt = now - lastTs;
@@ -2107,35 +1794,28 @@ function initMicroScribe(stage) {
     const text = box.value.trim();
     const syn = analyzeSyntaxCMTE(text);
     const thinkSec = focusTs && firstKeyTs ? Math.max(0.15, (firstKeyTs - focusTs) / 1000) : 0.8;
-    const avgIki = localIki.length ? Math.round(mean(localIki)) : 210;
-    const avgDwell = localDwell.length ? Math.round(mean(localDwell)) : 95;
-    const ftdRatio = round(avgIki / Math.max(40, avgDwell), 2);
     const editRate = localKeys ? round((localEdits / localKeys) * 100, 1) : 0;
     state.scores.syntax = Math.round(clamp(syn.cmtePrecision * 85 + (100 - editRate) * 0.15, 30, 99));
-    status.textContent = `Captured ${syn.words} words · Think lag: ${Math.round(thinkSec * 1000)} ms`;
+    status.textContent = `Captured ${syn.words} words!`;
 
     const isPreEditor = editRate < 6.5 || thinkSec > 1.8;
     const headline = isPreEditor
-      ? "Silent Pre-Editor (You Rehearse Full Phrases in Your Head Before Moving a Finger)"
-      : "Kinetic Sculptor (You Think Directly Through Your Fingertips)";
-    const body = `It took ${thinkSec.toFixed(2)}s after focusing to launch your first keystroke, then you typed at ${avgIki} ms between keys with ${avgDwell} ms key-press weight (flight-to-dwell ${ftdRatio}x) and a ${editRate}% mid-sentence self-edit rate. Under 9-second pressure, your average word length held at ${syn.meanWlen.toFixed(2)} letters (CMTE Precision ${syn.cmtePrecision.toFixed(2)}).`;
+      ? "Silent Pre-Editor — You Build Whole Thoughts Before You Move"
+      : "Kinetic Thinker — Your Best Ideas Flow Straight Through Motion";
+    const body = isPreEditor
+      ? `You paused ${thinkSec.toFixed(1)}s to shape the idea cleanly in your head, then delivered it with barely any backtracking (${editRate}% edits). You naturally prefer getting the wording right on the first pass.`
+      : `You jumped straight in after ${thinkSec.toFixed(1)}s and shaped your phrasing live on the fly — the classic signature of someone who thinks fastest while actively creating.`;
 
-    saveReveal("scribe", {
-      headline,
-      body,
-      pills: [`Think Lag: ${thinkSec.toFixed(2)}s`, `IKI: ${avgIki} ms`, `Edit Rate: ${editRate}%`, `CMTE Precision: ${syn.cmtePrecision.toFixed(2)}`],
-      science: "Keystroke dynamics research (Dhakal et al. 2018 / ACM CHI) proves pre-typing pause latency, inter-key cadence, and backspace frequency reliably separate mental pre-planning from kinetic revision."
-    });
+    saveReveal("scribe", { headline, body });
   }
 }
 
 document.getElementById("paperUpload").addEventListener("change", (e) => {
   const file = e.target.files?.[0];
   if (!file) return;
-  document.getElementById("paperDrawWrap").classList.add("hidden");
   document.getElementById("paperText").value = "";
   state.paperCloud = null;
-  document.getElementById("cloudStatus").textContent = "Photo loaded — tap Deep Cloud AI Read to transcribe and analyze.";
+  document.getElementById("cloudStatus").textContent = "";
   const reader = new FileReader();
   reader.onload = () => {
     const img = new Image();
@@ -2146,7 +1826,6 @@ document.getElementById("paperUpload").addEventListener("change", (e) => {
 });
 
 async function runDemoPaper() {
-  document.getElementById("paperDrawWrap").classList.add("hidden");
   state.paperCloud = null;
   document.getElementById("cloudStatus").textContent = "";
   try {
@@ -2168,24 +1847,19 @@ async function runDemoPaper() {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, c.width, c.height);
 
-  ctx.strokeStyle = "rgba(100, 149, 237, 0.25)";
-  ctx.lineWidth = 1.2;
+  ctx.strokeStyle = "rgba(100, 149, 237, 0.22)";
+  ctx.lineWidth = 1;
   for (let y = 58; y < c.height; y += 44) {
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(c.width, y);
     ctx.stroke();
   }
-  ctx.strokeStyle = "rgba(236, 72, 153, 0.25)";
+  ctx.strokeStyle = "rgba(236, 72, 153, 0.22)";
   ctx.beginPath();
   ctx.moveTo(68, 0);
   ctx.lineTo(68, c.height);
   ctx.stroke();
-
-  ctx.fillStyle = "rgba(140, 128, 108, 0.06)";
-  for (let i = 0; i < 650; i++) {
-    ctx.fillRect(Math.random() * c.width, Math.random() * c.height, 2, 2);
-  }
 
   const lines = [
     { text: "I think I left my keys near the back door", y: 100, x: 84, slope: -0.014, ink: "#24304a", size: 36, bold: false },
@@ -2223,6 +1897,28 @@ async function runDemoPaper() {
   const img = new Image();
   img.onload = () => processHandwritingImage(img, "image/jpeg", false);
   img.src = c.toDataURL("image/jpeg", 0.92);
+}
+
+function segmentAxis(counts, start, end, minInk, maxInk) {
+  const bands = [];
+  let inBand = false, bStart = 0, gap = 0;
+  for (let i = start; i < end; i++) {
+    const active = counts[i] >= minInk && counts[i] <= maxInk;
+    if (active) {
+      if (!inBand) { inBand = true; bStart = i; }
+      gap = 0;
+    } else if (inBand) {
+      gap++;
+      if (gap > 4) {
+        const bEnd = i - gap;
+        if (bEnd - bStart >= 10) bands.push({ a0: bStart, a1: bEnd });
+        inBand = false;
+        gap = 0;
+      }
+    }
+  }
+  if (inBand && (end - bStart) >= 10) bands.push({ a0: bStart, a1: end - 1 });
+  return bands;
 }
 
 function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
@@ -2285,11 +1981,13 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
   const yMin = Math.max(2, Math.floor(h * marginRatio));
   const yMax = Math.min(h - 2, Math.floor(h * (1 - marginRatio)));
   const innerW = Math.max(1, xMax - xMin);
-  const innerArea = Math.max(1, innerW * (yMax - yMin));
+  const innerH = Math.max(1, yMax - yMin);
+  const innerArea = Math.max(1, innerW * innerH);
 
-  const rad = 12;
+  const rad = 11;
   const inkMask = new Uint8Array(w * h);
   const rowCounts = new Int32Array(h);
+  const colCounts = new Int32Array(w);
   let inkPixels = 0;
 
   for (let y = yMin; y < yMax; y++) {
@@ -2303,11 +2001,12 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
       const localMean = localSum / area;
       const idx = y * w + x;
       const g = gray[idx];
-      const isPaper = isPhoto ? localMean > 78 : localMean > 50;
-      const contrastDelta = isPhoto ? 24 : 26;
-      if (isPaper && (localMean - g) > contrastDelta && g < 205) {
+      const isPaper = isPhoto ? localMean > 80 : localMean > 50;
+      const contrastDelta = isPhoto ? 34 : 28;
+      if (isPaper && (localMean - g) > contrastDelta && g < 185) {
         inkMask[idx] = 1;
         rowCounts[y]++;
+        colCounts[x]++;
         inkPixels++;
       }
     }
@@ -2335,59 +2034,51 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
   if (slantDeg > 45) slantDeg -= 90;
   if (slantDeg < -45) slantDeg += 90;
 
-  const minRowInk = Math.max(4, Math.floor(innerW * 0.012));
-  const maxRowInk = Math.floor(innerW * 0.60);
-  const rawLines = [];
-  let inLine = false, yStart = 0, gap = 0;
-
-  for (let y = yMin; y < yMax; y++) {
-    const active = rowCounts[y] >= minRowInk && rowCounts[y] <= maxRowInk;
-    if (active) {
-      if (!inLine) { inLine = true; yStart = y; }
-      gap = 0;
-    } else if (inLine) {
-      gap++;
-      if (gap > 3) {
-        const yEnd = y - gap;
-        if (yEnd - yStart >= 9) rawLines.push({ y0: yStart, y1: yEnd });
-        inLine = false;
-        gap = 0;
-      }
-    }
-  }
-  if (inLine && (yMax - yStart) >= 9) rawLines.push({ y0: yStart, y1: yMax - 1 });
+  const hBands = segmentAxis(rowCounts, yMin, yMax, Math.max(4, Math.floor(innerW * 0.015)), Math.floor(innerW * 0.55));
+  const vBands = segmentAxis(colCounts, xMin, xMax, Math.max(4, Math.floor(innerH * 0.015)), Math.floor(innerH * 0.55));
+  const useVertical = isPhoto && vBands.length > hBands.length && vBands.length >= 2;
+  const chosenBands = useVertical ? vBands : hBands;
 
   let peakLineIdx = 0;
   let peakScore = -1;
   const lineStats = [];
 
-  rawLines.forEach((ln) => {
-    let minX = w, maxX = 0, sumDark = 0, sumDarkSq = 0, cnt = 0;
+  chosenBands.forEach((band) => {
+    let minX = w, maxX = 0, minY = h, maxY = 0, sumDark = 0, sumDarkSq = 0, cnt = 0;
     let sx = 0, sy = 0, sxx = 0, sxy = 0;
-    for (let y = ln.y0; y <= ln.y1; y++) {
-      for (let x = xMin; x < xMax; x++) {
+    const ys0 = useVertical ? yMin : band.a0;
+    const ys1 = useVertical ? yMax - 1 : band.a1;
+    const xs0 = useVertical ? band.a0 : xMin;
+    const xs1 = useVertical ? band.a1 : xMax - 1;
+
+    for (let y = ys0; y <= ys1; y++) {
+      for (let x = xs0; x <= xs1; x++) {
         const p = y * w + x;
         if (!inkMask[p]) continue;
         const dark = 255 - gray[p];
         if (x < minX) minX = x;
         if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
         sumDark += dark;
         sumDarkSq += dark * dark;
-        sx += x; sy += y; sxx += x * x; sxy += x * y;
+        const px = useVertical ? y : x;
+        const py = useVertical ? x : y;
+        sx += px; sy += py; sxx += px * px; sxy += px * py;
         cnt++;
       }
     }
-    if (cnt < 25 || maxX <= minX) return;
+    if (cnt < 25 || maxX <= minX || maxY <= minY) return;
     const meanDark = sumDark / cnt;
     const darkVar = Math.max(0, (sumDarkSq / cnt) - meanDark ** 2);
     const den = cnt * sxx - sx * sx;
     const slope = Math.abs(den) > 1e-6 ? (cnt * sxy - sx * sy) / den : 0;
-    const density = cnt / Math.max(1, (ln.y1 - ln.y0 + 1) * (maxX - minX + 1));
+    const density = cnt / Math.max(1, (maxY - minY + 1) * (maxX - minX + 1));
     const focusScore = meanDark * 0.55 + Math.sqrt(darkVar) * 0.9 + density * 90;
     const item = {
       idx: lineStats.length + 1,
-      y0: ln.y0,
-      y1: ln.y1,
+      y0: minY,
+      y1: maxY,
       minX,
       maxX,
       meanDark: round(meanDark, 1),
@@ -2404,14 +2095,16 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
 
   let marginDriftPx = 0;
   if (lineStats.length >= 2) {
-    marginDriftPx = lineStats[lineStats.length - 1].minX - lineStats[0].minX;
+    marginDriftPx = useVertical
+      ? lineStats[lineStats.length - 1].y0 - lineStats[0].y0
+      : lineStats[lineStats.length - 1].minX - lineStats[0].minX;
   }
   const meanSlopeDeg = lineStats.length ? round(mean(lineStats.map(l => l.slopeDeg)), 2) : 0;
   const inkCoverage = round(inkPixels / innerArea, 4);
   const peak = lineStats[peakLineIdx];
 
   if (peak) {
-    const padX = 10, padY = 6;
+    const padX = 8, padY = 6;
     const bx = Math.max(4, peak.minX - padX);
     const by = Math.max(4, peak.y0 - padY);
     const bw = Math.min(w - bx - 4, (peak.maxX - peak.minX) + padX * 2);
@@ -2422,7 +2115,7 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
     ctx.fillStyle = "rgba(236, 72, 153, 0.12)";
     ctx.fillRect(bx, by, bw, bh);
 
-    const tag = `PEAK FOCUS LINE #${peak.idx}`;
+    const tag = `PEAK FOCUS · LINE ${peak.idx}`;
     ctx.font = "bold 12px sans-serif";
     const tw = ctx.measureText(tag).width + 14;
     const ty = by > 24 ? by - 22 : by + bh + 4;
@@ -2449,14 +2142,6 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
   renderPaperReveal();
 }
 
-function reanalyzePaperText() {
-  if (!state.paperCV) {
-    alert("Snap a handwriting photo, write with S-Pen, or tap 'Try Demo Paper' first!");
-    return;
-  }
-  renderPaperReveal();
-}
-
 function renderPaperReveal() {
   const cv = state.paperCV;
   if (!cv) return;
@@ -2464,75 +2149,67 @@ function renderPaperReveal() {
   const syn = analyzeSyntaxCMTE(text);
   if (syn.words >= 3) state.scores.syntax = Math.round(clamp(syn.cmtePrecision * 100, 30, 99));
 
-  const slantDesc = cv.slantDeg > 6 ? "rightward expressive lean" : cv.slantDeg < -6 ? "leftward guarded slant" : "upright analytical stroke control";
-  const marginDesc = cv.marginDriftPx > 10 ? "widening left margin (accelerating momentum)" : cv.marginDriftPx < -10 ? "tightening left margin (pulling back/cautious)" : "anchored vertical left margin";
-  const slopeDesc = cv.meanSlopeDeg > 1.2 ? "ascending baseline (upward energy)" : cv.meanSlopeDeg < -1.2 ? "descending baseline (deliberate weight/fatigue)" : "level controlled baseline";
+  const slantDesc = cv.slantDeg > 6
+    ? "a forward-leaning expressive stroke that signals quick emotional momentum"
+    : cv.slantDeg < -6
+      ? "a composed backward lean that keeps enthusiasm measured and controlled"
+      : "clean, upright strokes showing deliberate clarity and focus";
+  const marginDesc = cv.marginDriftPx > 10
+    ? "a widening margin as your pace accelerated down the page"
+    : cv.marginDriftPx < -10
+      ? "a tightening margin showing careful restraint"
+      : "a steady vertical anchor down the page";
+  const slopeDesc = cv.meanSlopeDeg > 1.2
+    ? "an upward line tilt reflecting rising energy"
+    : cv.meanSlopeDeg < -1.2
+      ? "a grounded downward line tilt reflecting heavy concentration"
+      : "a level, balanced baseline";
 
   const box = document.getElementById("paperRevealBox");
   box.classList.remove("hidden");
 
   const cloudBlock = state.paperCloud ? `
-    <div class="science-note" style="background:#fff; border-color:#fbcfe8; margin-top:12px;">
-      <strong>Cloud Gemini Vision Read (${state.paperCloud.meta?.llm_model || "live"}):</strong>
-      <p style="margin:6px 0 4px; color:var(--text);">${state.paperCloud.executive_read || ""}</p>
-      ${state.paperCloud.handwriting_transcription ? `<div style="font-size:12px; color:#5b21b6;"><strong>Transcribed:</strong> "${state.paperCloud.handwriting_transcription}"</div>` : ""}
+    <div class="cloud-note">
+      <strong>Deep Cloud AI Read:</strong>
+      <p style="margin:6px 0 4px;">${state.paperCloud.executive_read || ""}</p>
+      ${state.paperCloud.handwriting_transcription ? `<div style="font-size:12px; color:#5b21b6; margin-top:6px;"><strong>Transcribed:</strong> "${state.paperCloud.handwriting_transcription}"</div>` : ""}
     </div>
   ` : "";
 
-  const peakTitle = cv.peakLine
-    ? `Peak Cognitive Concentration Locked on Line #${cv.peakLine.idx} of #${cv.lineCount}!`
-    : `Handwriting Ink Geometry Analyzed (${(cv.inkCoverageRatio * 100).toFixed(1)}% Coverage)`;
+  const peakTitle = cv.peakLine && cv.lineCount > 1
+    ? `Peak Concentration Locked on Line ${cv.peakLine.idx} of ${cv.lineCount}`
+    : `Handwriting Energy Signature Locked`;
 
-  const syntaxLine = syn.words > 0
-    ? `Fused with ${syn.words} written words: CMTE Precision ${syn.cmtePrecision}, Nesting ${syn.cmteNesting}, Affective Stability ${syn.cmteAffect}, Hedges ${syn.hedges}, Self-Reference (1st-person) ${syn.p1}.`
-    : `Tap Deep Cloud AI Read to auto-transcribe the handwriting and fuse wording syntax with this ink geometry.`;
+  const peakLineCopy = cv.peakLine
+    ? `Line ${cv.peakLine.idx} carried the sharpest ink intensity and pressure contrast on the sheet, highlighted above.`
+    : "";
+
+  const wordingCopy = syn.words > 0
+    ? ` Combined with your wording, your phrasing reads as ${syn.cmtePrecision >= 0.65 ? "crisp and structured" : "natural and conversational"}${syn.hedges > 0 ? " with subtle second-guessing cues." : " with direct conviction."}`
+    : "";
 
   box.innerHTML = `
     <div class="reveal-tag">Paper Trick Reveal</div>
     <h2>${peakTitle}</h2>
-    <p style="margin:0 0 10px; font-size:14px;">
-      Local paper-contrast thresholding (Otsu T=${cv.otsuThreshold}) and Sobel stroke tensors detected a <strong>${slantDesc}</strong> (${cv.slantDeg}°),
-      a <strong>${slopeDesc}</strong> (${cv.meanSlopeDeg}°), and a <strong>${marginDesc}</strong> (${cv.marginDriftPx > 0 ? "+" : ""}${cv.marginDriftPx}px).
-      ${cv.peakLine ? `Line #${cv.peakLine.idx} showed the sharpest ink darkness &amp; pressure variance (score ${cv.peakLine.focusScore}), boxed in rose above.` : ""}
+    <p style="margin:0; font-size:14px;">
+      Your handwriting reveals ${slantDesc}, paired with ${slopeDesc} and ${marginDesc}. ${peakLineCopy}${wordingCopy}
     </p>
-    <p style="margin:0 0 12px; font-size:13px; color:#4c1d95;"><strong>Stylometry + CMTE Fusion:</strong> ${syntaxLine}</p>
-    <div class="metric-strip" style="margin-top:0;">
-      <span class="chip">Otsu T: ${cv.otsuThreshold}</span>
-      <span class="chip rose">Slant: ${cv.slantDeg}°</span>
-      <span class="chip sky">Baseline: ${cv.meanSlopeDeg}°</span>
-      <span class="chip mint">Margin Drift: ${cv.marginDriftPx}px</span>
-      <span class="chip gold">Ink: ${(cv.inkCoverageRatio * 100).toFixed(2)}%</span>
-    </div>
     ${cloudBlock}
   `;
 }
 
-function startVoiceDictation() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    alert("Voice dictation isn't supported in this browser — type directly or use Deep Cloud AI Read.");
-    return;
-  }
-  const rec = new SR();
-  rec.lang = "en-GB";
-  rec.interimResults = false;
-  rec.onresult = (ev) => {
-    const transcript = ev.results[0][0].transcript;
-    const box = document.getElementById("paperText");
-    box.value = (box.value ? box.value + "\n" : "") + transcript;
-    if (state.paperCV) renderPaperReveal();
-  };
-  rec.start();
-}
+document.getElementById("paperText").addEventListener("input", () => {
+  if (state.paperCV) renderPaperReveal();
+});
 
 async function runCloudPaperRead() {
   const status = document.getElementById("cloudStatus");
   const text = document.getElementById("paperText").value.trim();
   if (!state.paperImageBase64 && !text) {
-    status.textContent = "Load a handwriting photo, write with S-Pen, or tap Try Demo Paper first.";
+    status.textContent = "Snap a handwriting photo or tap Try Demo Paper first.";
     return;
   }
-  status.textContent = "Contacting Supabase Edge Function (tipo-api)...";
+  status.textContent = "Running Deep Cloud AI Read...";
   try {
     const headers = { "Content-Type": "application/json" };
     if (state.decodeSessionId) headers["x-decode-session"] = state.decodeSessionId;
@@ -2543,6 +2220,7 @@ async function runCloudPaperRead() {
         mode: state.paperImageBase64 ? "handwriting" : "single",
         text,
         sessionId: state.decodeSessionId || undefined,
+        baseline: state.profile,
         handwritingImage: state.paperImageBase64 ? {
           mimeType: state.paperMime,
           base64: state.paperImageBase64,
@@ -2556,7 +2234,7 @@ async function runCloudPaperRead() {
     });
     const data = await res.json();
     if (res.status === 402) {
-      status.textContent = data.error || "Unlock the 99p Cloud Pass in Tab 4 to run live Gemini Vision reads.";
+      status.textContent = data.error || "Unlock the 99p Cloud Pass in Readout to run Deep Cloud AI reads.";
       return;
     }
     if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
@@ -2564,13 +2242,13 @@ async function runCloudPaperRead() {
     if (data.handwriting_transcription && !text) {
       document.getElementById("paperText").value = data.handwriting_transcription;
     }
-    status.textContent = `Cloud read complete (${data.meta?.llm_model || "ok"} · ${data.meta?.elapsed_ms || 0} ms).`;
+    status.textContent = "Deep Cloud AI Read complete.";
     if (!state.paperCV) {
       state.paperCV = { width: 0, height: 0, otsuThreshold: 0, inkCoverageRatio: 0, slantDeg: 0, meanSlopeDeg: 0, marginDriftPx: 0, lineCount: 0, peakLine: null };
     }
     renderPaperReveal();
   } catch (err) {
-    status.textContent = "Cloud endpoint unreachable right now (" + err.message + "). Local CV + CMTE results remain 100% live.";
+    status.textContent = "Cloud read unavailable right now — your instant local paper read stays live.";
   }
 }
 
@@ -2628,19 +2306,38 @@ function renderRadar() {
 function renderReadout() {
   renderRadar();
   const brac = computeCfxBrac();
-  const avgIki = state.ikiList.length ? `${Math.round(mean(state.ikiList))} ms` : "--";
-  const avgDwell = state.dwellList.length ? `${Math.round(mean(state.dwellList))} ms` : "--";
-  const avgDrop = state.dropdownTimes.length ? `${(mean(state.dropdownTimes) / 1000).toFixed(2)} s` : "--";
+  const avgIki = state.ikiList.length ? `${Math.round(mean(state.ikiList))} ms` : "Listening";
+  const avgDrop = state.dropdownTimes.length ? `${(mean(state.dropdownTimes) / 1000).toFixed(2)} s` : "Not yet measured";
   const editRate = state.keys ? `${round((state.backspaces / state.keys) * 100, 1)}%` : "0.0%";
+  const burstLabel = brac.bn === null
+    ? "Type more to read"
+    : brac.bn > 0.2
+      ? "Sprint Bursts"
+      : brac.bn < -0.15
+        ? "Ultra-Steady"
+        : "Balanced Flow";
+  const cycleLabel = brac.bracScale >= 1.05
+    ? "Peak Focus Window"
+    : brac.bracScale <= 0.95
+      ? "Recharge Window"
+      : "Steady Cruise";
 
-  document.getElementById("readoutStats").innerHTML = `
-    <div class="stat-row"><span>CFX-BRAC Cognitive Load</span><span class="stat-val">${brac.score} / 100</span></div>
-    <div class="stat-row"><span>Positive BRAC Ultradian Scale</span><span class="stat-val">${brac.bracScale}x (${brac.phasePct}% cycle)</span></div>
-    <div class="stat-row"><span>Kim-Jo Burstiness (B)</span><span class="stat-val">${brac.bn !== null ? round(brac.bn, 3) : "Need ≥2 IKI"}</span></div>
-    <div class="stat-row"><span>Mean Inter-Key Interval</span><span class="stat-val">${avgIki}</span></div>
-    <div class="stat-row"><span>Mean Key Dwell / Edit Rate</span><span class="stat-val">${avgDwell} / ${editRate}</span></div>
-    <div class="stat-row"><span>Dropdown Decision Cadence</span><span class="stat-val">${avgDrop}</span></div>
-  `;
+  const rows = [
+    ["Mental Load Index", `${brac.score} / 100`],
+    ["Energy Cycle Rhythm", `${cycleLabel} (${brac.phasePct}%)`],
+    ["Thinking Rhythm", burstLabel],
+    ["Typing Pace", avgIki],
+    ["Self-Edit Rate", editRate],
+    ["Decision Speed", avgDrop],
+    ["Profile Calibration", getProfileSummary()]
+  ];
+
+  document.getElementById("readoutStats").innerHTML = rows.map(([label, val]) => `
+    <div class="stat-row">
+      <span class="stat-label">${label}</span>
+      <span class="stat-val">${val}</span>
+    </div>
+  `).join("");
 
   const revs = Object.values(state.reveals);
   const revBox = document.getElementById("readoutReveals");
@@ -2652,15 +2349,14 @@ function renderReadout() {
       </div>
     `).join("");
   }
-  updateDobHash();
 }
 
 function copyFullReadout() {
   const brac = computeCfxBrac();
   const lines = [
-    "Tipo — Pastel Mind & Paper Decoder Readout",
-    `CFX-BRAC Load: ${brac.score}/100 (BRAC ${brac.bracScale}x) | Keys: ${state.keys} | B_n: ${brac.bn !== null ? round(brac.bn, 3) : "--"}`,
-    `6-Axis Scores: Motor ${state.scores.motor}, Reflex ${state.scores.reflex}, Time ${state.scores.time}, Spatial ${state.scores.spatial}, Stroop ${state.scores.stroop}, Syntax ${state.scores.syntax}`,
+    "Tipo — Full Mind & Motor Readout",
+    `Mental Load Index: ${brac.score}/100 | Cycle: ${brac.phasePct}%`,
+    `6-Axis Scores: Motor ${state.scores.motor}, Reflex ${state.scores.reflex}, Time ${state.scores.time}, Spatial ${state.scores.spatial}, Focus ${state.scores.stroop}, Syntax ${state.scores.syntax}`,
     ...Object.values(state.reveals).map(r => `${r.headline}: ${r.body}`)
   ];
   navigator.clipboard?.writeText(lines.join("\n"));
@@ -2669,7 +2365,8 @@ function copyFullReadout() {
 
 async function startStripeCheckout() {
   const chip = document.getElementById("passStatusChip");
-  chip.textContent = "Creating 99p Stripe Checkout...";
+  chip.textContent = "Opening 99p Checkout...";
+  chip.classList.remove("hidden");
   try {
     const res = await fetch(CONFIG.CHECKOUT_ENDPOINT, {
       method: "POST",
@@ -2680,7 +2377,7 @@ async function startStripeCheckout() {
     if (data.url) {
       window.location.href = data.url;
     } else {
-      chip.textContent = data.error || "Checkout endpoint needs live Stripe price verification.";
+      chip.textContent = data.error || "Checkout unavailable right now.";
     }
   } catch (err) {
     chip.textContent = "Checkout error: " + err.message;
