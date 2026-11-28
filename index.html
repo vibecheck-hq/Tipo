@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#fdf6fb" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Tipo" />
+<meta name="mobile-web-app-capable" content="yes" />
 <title>Tipo</title>
 <link rel="manifest" href="./manifest.json" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
 <link rel="icon" type="image/svg+xml" href="./icon.svg" />
-<link rel="apple-touch-icon" href="./icon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
@@ -57,10 +60,7 @@ body {
   padding: 8px 12px;
 }
 
-.topbar-inner {
-  max-width: 960px;
-  margin: 0 auto;
-}
+.topbar-inner { max-width: 960px; margin: 0 auto; }
 
 .header-row {
   display: flex;
@@ -70,11 +70,7 @@ body {
   margin-bottom: 8px;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.brand { display: flex; align-items: center; gap: 8px; }
 
 .brand-icon {
   width: 30px;
@@ -90,12 +86,7 @@ body {
   flex-shrink: 0;
 }
 
-.brand-title {
-  font-weight: 850;
-  font-size: 16px;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
+.brand-title { font-weight: 850; font-size: 16px; letter-spacing: -0.02em; line-height: 1; }
 
 .install-btn {
   border: 1px solid #e4d8f5;
@@ -110,14 +101,22 @@ body {
   white-space: nowrap;
 }
 
+.install-btn.ready {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.28);
+}
+
 .install-toast {
-  font-size: 12px;
-  color: #5b21b6;
+  font-size: 12.5px;
+  color: #4c1d95;
   background: #f5f0ff;
-  border: 1px solid #e4d8f5;
+  border: 1px solid #d8c7f5;
   border-radius: 12px;
-  padding: 8px 12px;
+  padding: 9px 12px;
   margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 .tab-bar {
@@ -150,12 +149,7 @@ body {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.14);
 }
 
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 14px 12px 64px;
-}
-
+.container { max-width: 960px; margin: 0 auto; padding: 14px 12px 64px; }
 .tab-panel { display: none; animation: fadeIn 0.22s ease; }
 .tab-panel.active { display: block; }
 
@@ -187,32 +181,10 @@ body {
 .chip.mint { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
 .chip.gold { background: #fffbeb; border-color: #fde68a; color: #b45309; }
 
-h1 {
-  font-size: clamp(21px, 4vw, 30px);
-  line-height: 1.18;
-  letter-spacing: -0.03em;
-  margin: 0 0 10px;
-  font-weight: 850;
-}
-
-h2 {
-  font-size: 19px;
-  letter-spacing: -0.02em;
-  margin: 0 0 6px;
-  font-weight: 800;
-}
-
-h3 {
-  font-size: 16px;
-  margin: 0 0 8px;
-  font-weight: 800;
-}
-
-.subcopy {
-  color: var(--muted);
-  font-size: 14px;
-  margin: 0 0 16px;
-}
+h1 { font-size: clamp(21px, 4vw, 30px); line-height: 1.18; letter-spacing: -0.03em; margin: 0 0 10px; font-weight: 850; }
+h2 { font-size: 19px; letter-spacing: -0.02em; margin: 0 0 6px; font-weight: 800; }
+h3 { font-size: 16px; margin: 0 0 8px; font-weight: 800; }
+.subcopy { color: var(--muted); font-size: 14px; margin: 0 0 16px; }
 
 .wave-box {
   background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 50%, #f0fdf4 100%);
@@ -233,22 +205,8 @@ h3 {
   color: #5b21b6;
 }
 
-.wave-bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 4px;
-  height: 40px;
-  padding: 2px;
-}
-
-.wave-bar {
-  flex: 1;
-  min-height: 6px;
-  height: 10px;
-  border-radius: 999px;
-  transition: height 0.14s ease;
-}
+.wave-bars { display: flex; align-items: flex-end; justify-content: space-between; gap: 4px; height: 40px; padding: 2px; }
+.wave-bar { flex: 1; min-height: 6px; height: 10px; border-radius: 999px; transition: height 0.14s ease; }
 
 label.field-label {
   display: block;
@@ -279,38 +237,16 @@ textarea:focus, select:focus, input[type="text"]:focus {
   box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.16);
 }
 
-.profile-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.dob-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
+.profile-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+.dob-grid { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 10px; margin-bottom: 14px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 
 @media (max-width: 600px) {
   .form-grid { grid-template-columns: 1fr; }
   .tab-btn { font-size: 12.5px; padding: 7px 2px; }
 }
 
-.btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 16px;
-}
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 
 .btn {
   border: none;
@@ -326,6 +262,9 @@ textarea:focus, select:focus, input[type="text"]:focus {
   gap: 8px;
   transition: transform 0.12s ease, box-shadow 0.18s ease, opacity 0.18s;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
 }
 
 .btn:active { transform: scale(0.98); }
@@ -335,7 +274,15 @@ textarea:focus, select:focus, input[type="text"]:focus {
   color: #fff;
   box-shadow: 0 8px 20px rgba(139, 92, 246, 0.28);
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
+}
+
+.btn-sky {
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+  flex: 1;
+  min-width: 150px;
 }
 
 .btn-mint {
@@ -358,43 +305,25 @@ textarea:focus, select:focus, input[type="text"]:focus {
   box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
 }
 
-.game-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.game-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
-  color: #be185d;
-  background: #fce7f3;
-  padding: 4px 10px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-}
-
-.timer-ring-wrap {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
-}
-
-.timer-ring-wrap svg { transform: rotate(-90deg); width: 56px; height: 56px; }
-
-.timer-ring-text {
+/* Visually hidden but natively interactive for Android/iOS file pickers */
+.sr-file-input {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  font-weight: 800;
-  color: #5b21b6;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
 }
+
+.game-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.game-badge { display: inline-block; font-size: 11px; font-weight: 800; color: #be185d; background: #fce7f3; padding: 4px 10px; border-radius: 999px; margin-bottom: 6px; }
+.timer-ring-wrap { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+.timer-ring-wrap svg { transform: rotate(-90deg); width: 56px; height: 56px; }
+.timer-ring-text { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #5b21b6; }
 
 .game-stage {
   min-height: 220px;
@@ -412,15 +341,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
   user-select: none;
 }
 
-.game-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 14px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
-}
+.game-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--muted); }
 
 .hold-cloud {
   min-width: 240px;
@@ -471,14 +392,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
 .orb-nogo { background: linear-gradient(135deg, #fb7185, #f43f5e); box-shadow: 0 0 0 12px rgba(244, 63, 94, 0.22); }
 .orb-metro { background: linear-gradient(135deg, #f472b6, #a78bfa); }
 
-.ribbon-track {
-  width: 100%;
-  height: 62px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
+.ribbon-track { width: 100%; height: 62px; display: flex; align-items: center; position: relative; }
 .ribbon-bar {
   height: 30px;
   border-radius: 999px;
@@ -489,40 +403,11 @@ textarea:focus, select:focus, input[type="text"]:focus {
   position: relative;
   touch-action: manipulation;
 }
+.ribbon-mark { position: absolute; top: -5px; width: 6px; height: 36px; border-radius: 4px; background: #7c3aed; transform: translateX(-50%); pointer-events: none; }
 
-.ribbon-mark {
-  position: absolute;
-  top: -5px;
-  width: 6px;
-  height: 36px;
-  border-radius: 4px;
-  background: #7c3aed;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.stroop-word {
-  font-size: 46px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  margin: 4px 0 8px;
-}
-
-.stroop-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 180px));
-  gap: 10px;
-}
-
-.stroop-btn {
-  padding: 13px 16px;
-  border-radius: 14px;
-  border: 1.5px solid transparent;
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-}
-
+.stroop-word { font-size: 46px; font-weight: 900; letter-spacing: 0.04em; margin: 4px 0 8px; }
+.stroop-grid { display: grid; grid-template-columns: repeat(2, minmax(120px, 180px)); gap: 10px; }
+.stroop-btn { padding: 13px 16px; border-radius: 14px; border: 1.5px solid transparent; font-weight: 800; font-size: 14px; cursor: pointer; }
 .stroop-rose { background: #fce7f3; color: #be185d; border-color: #fbcfe8; }
 .stroop-mint { background: #d1fae5; color: #047857; border-color: #a7f3d0; }
 .stroop-sky { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
@@ -553,40 +438,12 @@ textarea:focus, select:focus, input[type="text"]:focus {
   margin-bottom: 8px;
 }
 
-.cloud-note {
-  margin-top: 12px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  background: #ffffff;
-  border: 1px solid #fbcfe8;
-  font-size: 13px;
-  color: var(--text);
-}
+.cloud-note { margin-top: 12px; padding: 12px 14px; border-radius: 14px; background: #ffffff; border: 1px solid #fbcfe8; font-size: 13px; color: var(--text); }
+.unlocked-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (max-width: 640px) { .unlocked-grid { grid-template-columns: 1fr; } }
 
-.unlocked-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-@media (max-width: 640px) {
-  .unlocked-grid { grid-template-columns: 1fr; }
-}
-
-.mini-reveal {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px;
-  font-size: 13px;
-}
-
-.mini-reveal h4 {
-  margin: 0 0 6px;
-  font-size: 14px;
-  font-weight: 800;
-  color: #3b0764;
-}
+.mini-reveal { background: rgba(255, 255, 255, 0.88); border: 1px solid var(--border); border-radius: 16px; padding: 14px; font-size: 13px; }
+.mini-reveal h4 { margin: 0 0 6px; font-size: 14px; font-weight: 800; color: #3b0764; }
 
 .paper-preview-wrap {
   width: 100%;
@@ -598,54 +455,16 @@ textarea:focus, select:focus, input[type="text"]:focus {
   margin: 14px 0;
 }
 
-#paperCanvas {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(31, 27, 46, 0.08);
-  display: none;
-}
+#paperCanvas { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(31, 27, 46, 0.08); display: none; }
 
-.readout-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
+.readout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 720px) { .readout-grid { grid-template-columns: 1fr; } }
+.radar-wrap { display: grid; place-items: center; padding: 6px 0; }
 
-@media (max-width: 720px) {
-  .readout-grid { grid-template-columns: 1fr; }
-}
-
-.radar-wrap {
-  display: grid;
-  place-items: center;
-  padding: 6px 0;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f1eafc;
-  font-size: 14px;
-}
-
+.stat-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f1eafc; font-size: 14px; }
 .stat-row:last-child { border-bottom: none; }
-
-.stat-label {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.stat-val {
-  font-family: var(--font);
-  font-weight: 800;
-  color: #5b21b6;
-  text-align: right;
-  white-space: nowrap;
-}
+.stat-label { color: var(--text); font-weight: 500; }
+.stat-val { font-family: var(--font); font-weight: 800; color: #5b21b6; text-align: right; white-space: nowrap; }
 
 .hidden { display: none !important; }
 </style>
@@ -829,20 +648,25 @@ textarea:focus, select:focus, input[type="text"]:focus {
     <div class="card">
       <h2>The Paper-Writing Mind-Reading Trick</h2>
       <p class="subcopy">
-        Have someone write 3-5 natural lines on paper and snap a photo, or tap <strong>Try Demo Paper</strong>. Tipo reads the ink immediately on your device, with an optional Deep Cloud AI Read for full handwriting transcription.
+        Have someone write 3-5 natural lines on paper and upload or snap a photo, or tap <strong>Try Demo Paper</strong>. Tipo reads the ink immediately on your device, with an optional Deep Cloud AI Read for full handwriting transcription.
       </p>
 
       <div class="btn-row" style="margin-top:8px;">
-        <label class="btn btn-primary" style="cursor:pointer;">
-          Snap / Upload Handwriting Photo
-          <input id="paperUpload" type="file" accept="image/*" capture="environment" style="display:none;" />
+        <label class="btn btn-primary" for="paperGallery">
+          Upload Photo
+          <input id="paperGallery" class="sr-file-input" type="file" accept="image/*" />
         </label>
-        <button class="btn btn-mint" onclick="runDemoPaper()">Try Demo Paper</button>
+        <label class="btn btn-sky" for="paperCamera">
+          Take Photo
+          <input id="paperCamera" class="sr-file-input" type="file" accept="image/*" capture="environment" />
+        </label>
+        <button class="btn btn-mint" type="button" onclick="runDemoPaper()">Try Demo Paper</button>
       </div>
+      <div id="uploadStatus" style="font-size:12px; color:#5b21b6; font-weight:700; margin-top:8px;"></div>
 
       <div class="paper-preview-wrap">
         <div id="paperPlaceholder" style="color:var(--muted); font-size:13px; padding: 26px 10px;">
-          No handwriting sheet loaded yet. Snap a photo or tap <strong>Try Demo Paper</strong>.
+          No handwriting sheet loaded yet. Upload a photo, take a photo, or tap <strong>Try Demo Paper</strong>.
         </div>
         <canvas id="paperCanvas"></canvas>
       </div>
@@ -851,7 +675,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
       <textarea id="paperText" rows="3" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-gramm="false" placeholder="Optional — leave blank or tap Deep Cloud AI Read to auto-transcribe the sheet..."></textarea>
 
       <div class="btn-row" style="margin-top:12px;">
-        <button id="cloudReadBtn" class="btn btn-gold" onclick="runCloudPaperRead()">Deep Cloud AI Read</button>
+        <button id="cloudReadBtn" class="btn btn-gold" type="button" onclick="runCloudPaperRead()">Deep Cloud AI Read</button>
       </div>
       <div id="cloudStatus" style="font-size:12px; color:var(--muted); margin-top:8px;"></div>
     </div>
@@ -866,7 +690,10 @@ textarea:focus, select:focus, input[type="text"]:focus {
           <h2>Full Mind &amp; Motor Readout</h2>
           <p class="subcopy" style="margin:0;">Your personal mind, rhythm, and focus profile.</p>
         </div>
-        <button class="btn btn-soft" onclick="copyFullReadout()">Copy Readout</button>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-soft" type="button" onclick="shareChallenge()">Challenge Friend</button>
+          <button class="btn btn-soft" type="button" onclick="copyFullReadout()">Copy Readout</button>
+        </div>
       </div>
 
       <div class="readout-grid">
@@ -893,7 +720,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
         All 6 micro-games, instant paper scanning, and your 6-axis radar work right on your device. Unlock 50 Deep Cloud AI handwriting &amp; subtext reads for 99p.
       </p>
       <div class="btn-row" style="margin-top:0;">
-        <button class="btn btn-gold" onclick="startStripeCheckout()">Unlock 50 Cloud Reads — £0.99</button>
+        <button class="btn btn-gold" type="button" onclick="startStripeCheckout()">Unlock 50 Cloud Reads — £0.99</button>
         <span id="passStatusChip" class="chip mint hidden" style="align-self:center;"></span>
       </div>
     </div>
@@ -911,8 +738,13 @@ const CONFIG = {
 let deferredInstallPrompt = null;
 const installBtn = document.getElementById("installAppBtn");
 const installToast = document.getElementById("installToast");
+let toastTimer = null;
 
-if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true) {
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+if (isStandaloneMode()) {
   installBtn.classList.add("hidden");
 }
 
@@ -920,6 +752,8 @@ window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
   installBtn.classList.remove("hidden");
+  installBtn.classList.add("ready");
+  installBtn.textContent = "Install App";
 });
 
 window.addEventListener("appinstalled", () => {
@@ -928,24 +762,43 @@ window.addEventListener("appinstalled", () => {
   installToast.classList.add("hidden");
 });
 
+function showInstallToast(msg) {
+  installToast.textContent = msg;
+  installToast.classList.remove("hidden");
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => installToast.classList.add("hidden"), 8000);
+}
+
 async function triggerInstallApp() {
   if (deferredInstallPrompt) {
-    deferredInstallPrompt.prompt();
-    const res = await deferredInstallPrompt.userChoice;
-    if (res && res.outcome === "accepted") {
-      installBtn.classList.add("hidden");
+    try {
+      await deferredInstallPrompt.prompt();
+      const res = await deferredInstallPrompt.userChoice;
+      if (res && res.outcome === "accepted") {
+        installBtn.classList.add("hidden");
+        installToast.classList.add("hidden");
+      }
+      deferredInstallPrompt = null;
+      return;
+    } catch (err) {
+      deferredInstallPrompt = null;
     }
-    deferredInstallPrompt = null;
-    return;
   }
-  installToast.textContent = "To install Tipo as a home screen app, tap your browser menu and select Add to Home screen or Install app.";
-  installToast.classList.remove("hidden");
-  setTimeout(() => installToast.classList.add("hidden"), 6500);
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  const isSamsung = /SamsungBrowser/i.test(ua);
+  if (isIOS) {
+    showInstallToast("On iPhone or iPad: tap the Share button at the bottom of Safari, then tap Add to Home Screen.");
+  } else if (isSamsung) {
+    showInstallToast("On Samsung Internet: tap the menu icon at the bottom right, then tap Add page to and choose Home screen.");
+  } else {
+    showInstallToast("To install Tipo: tap the three-dot browser menu at the top right, then tap Add to Home screen or Install app.");
+  }
 }
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
+    navigator.serviceWorker.register("./sw.js", { scope: "./" }).catch(() => {});
   });
 }
 
@@ -984,19 +837,9 @@ if (state.decodeSessionId) {
   chip.classList.remove("hidden");
 }
 
-function round(n, d = 2) {
-  const p = 10 ** d;
-  return Math.round(n * p) / p;
-}
-
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
-}
-
-function mean(arr) {
-  return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
-}
-
+function round(n, d = 2) { const p = 10 ** d; return Math.round(n * p) / p; }
+function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+function mean(arr) { return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0; }
 function stdDev(arr) {
   if (arr.length < 2) return 0;
   const m = mean(arr);
@@ -1159,17 +1002,11 @@ function updateLiveMetricsUI() {
   if (syn.words >= 3) {
     state.scores.syntax = Math.round(clamp(syn.cmtePrecision * 100, 25, 98));
   }
-
   const badge = document.getElementById("cadenceBadge");
-  if (state.ikiList.length < 3) {
-    badge.textContent = "Listening...";
-  } else if (bn !== null && bn > 0.25) {
-    badge.textContent = "Bursty Sprint Flow";
-  } else if (avgIki < 175) {
-    badge.textContent = "High-Velocity Flow";
-  } else {
-    badge.textContent = "Steady Rhythm";
-  }
+  if (state.ikiList.length < 3) badge.textContent = "Listening...";
+  else if (bn !== null && bn > 0.25) badge.textContent = "Bursty Sprint Flow";
+  else if (avgIki < 175) badge.textContent = "High-Velocity Flow";
+  else badge.textContent = "Steady Rhythm";
 }
 
 (function populateDOB() {
@@ -1231,12 +1068,8 @@ function switchTab(name) {
   cleanupActiveGame();
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + name));
-  if (name === "games" && !currentGameId) {
-    loadGame(GAME_ORDER[0]);
-  }
-  if (name === "readout") {
-    renderReadout();
-  }
+  if (name === "games" && !currentGameId) loadGame(GAME_ORDER[0]);
+  if (name === "readout") renderReadout();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1300,8 +1133,9 @@ function saveReveal(gameId, data) {
     <h2 style="margin-bottom:8px;">${data.headline}</h2>
     <p style="margin:0 0 12px; font-size:14px;">${data.body}</p>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="shuffleGame()">Next Random Game</button>
-      <button class="btn btn-mint" onclick="switchTab('paper')">Try Paper Trick</button>
+      <button class="btn btn-primary" type="button" onclick="shuffleGame()">Next Random Game</button>
+      <button class="btn btn-mint" type="button" onclick="switchTab('paper')">Try Paper Trick</button>
+      <button class="btn btn-soft" type="button" onclick="shareChallenge()">Challenge Friend</button>
     </div>
   `;
   renderUnlockedGrid();
@@ -1343,14 +1177,12 @@ function initTimeMirage(stage) {
   document.getElementById("gameTitle").textContent = "The 4-Second Time Mirage";
   document.getElementById("gameDesc").textContent = "Press & HOLD the pastel cloud, then release when you FEEL exactly 4.0 seconds have passed. Don't count — feel it!";
   stage.innerHTML = `
-    <button id="holdCloud" class="hold-cloud">HOLD FOR 4 SECONDS</button>
+    <button id="holdCloud" class="hold-cloud" type="button">HOLD FOR 4 SECONDS</button>
     <div id="mirageHint" style="font-size:12px; color:var(--muted);">Timer stays hidden while you hold to read your natural internal clock.</div>
   `;
   const btn = document.getElementById("holdCloud");
   const hint = document.getElementById("mirageHint");
-  let holding = false;
-  let finished = false;
-  let startTs = 0;
+  let holding = false, finished = false, startTs = 0;
 
   function beginHold(e) {
     if (finished || holding) return;
@@ -1392,7 +1224,6 @@ function initTimeMirage(stage) {
       headline = `Atomic-Clock Timekeeper (Only ${(err * 1000).toFixed(0)} ms Off!)`;
       body = `You released at ${heldSec.toFixed(2)} seconds — remarkably close to a true 4.00s span. Your internal sense of timing stays dialed in with rare precision.`;
     }
-
     saveReveal("mirage", { headline, body });
   }
 
@@ -1418,14 +1249,11 @@ function initBiasRibbon(stage) {
   document.getElementById("gameDesc").textContent = "Tap the EXACT visual center of each bar as quickly as you can! (4 quick rounds)";
   const widths = [88, 74, 92, 80];
   const offsets = [0, 12, -10, 6];
-  let roundIdx = 0;
-  let started = false;
-  let finished = false;
+  let roundIdx = 0, started = false, finished = false;
   const skews = [];
 
   function renderBar() {
-    const w = widths[roundIdx];
-    const ml = offsets[roundIdx];
+    const w = widths[roundIdx], ml = offsets[roundIdx];
     stage.innerHTML = `
       <div style="font-size:13px; font-weight:700; color:#5b21b6;">Bar ${roundIdx + 1} of 4 — Tap the EXACT middle!</div>
       <div class="ribbon-track" style="justify-content:center;">
@@ -1443,18 +1271,14 @@ function initBiasRibbon(stage) {
       }
       const rect = bar.getBoundingClientRect();
       const relX = clamp((e.clientX - rect.left) / rect.width, 0, 1);
-      const skewPct = (relX - 0.5) * 100;
-      skews.push(skewPct);
+      skews.push((relX - 0.5) * 100);
       const mark = document.createElement("div");
       mark.className = "ribbon-mark";
       mark.style.left = (relX * 100) + "%";
       bar.appendChild(mark);
       roundIdx++;
-      if (roundIdx >= 4) {
-        setTimeout(finishRibbon, 180);
-      } else {
-        setTimeout(renderBar, 160);
-      }
+      if (roundIdx >= 4) setTimeout(finishRibbon, 180);
+      else setTimeout(renderBar, 160);
     });
   }
 
@@ -1479,25 +1303,18 @@ function initBiasRibbon(stage) {
       headline = `Rightward Action Scanner (${absSkew.toFixed(1)}% Right Pull)`;
       body = `Your midpoints leaned slightly to the right of dead center — a classic signature of someone who scans fast toward outcomes, next steps, and the action side of any layout.`;
     }
-
     saveReveal("ribbon", { headline, body });
   }
-
   renderBar();
 }
 
 function initReflexGame(stage) {
   document.getElementById("gameTitle").textContent = "Blink-of-an-Eye Reflex";
   document.getElementById("gameDesc").textContent = "Tap ONLY when the circle flashes MINT GREEN ('GO!'). Freeze if it flashes CORAL ('WAIT!').";
-  stage.innerHTML = `<button id="reflexOrb" class="orb-btn orb-hold"><span>TAP TO START</span><small style="font-weight:600; opacity:.9;">Watch closely</small></button>`;
+  stage.innerHTML = `<button id="reflexOrb" class="orb-btn orb-hold" type="button"><span>TAP TO START</span><small style="font-weight:600; opacity:.9;">Watch closely</small></button>`;
   const orb = document.getElementById("reflexOrb");
-  let phase = "idle";
-  let stimulusTs = 0;
+  let phase = "idle", stimulusTs = 0, falseStarts = 0, noGoSaves = 0, noGoFails = 0, flashCount = 0;
   const rts = [];
-  let falseStarts = 0;
-  let noGoSaves = 0;
-  let noGoFails = 0;
-  let flashCount = 0;
 
   function scheduleNextFlash() {
     if (phase === "done") return;
@@ -1514,10 +1331,7 @@ function initReflexGame(stage) {
         orb.className = "orb-btn orb-nogo";
         orb.innerHTML = `<span>FREEZE!</span><small style="font-weight:600;">Don't tap!</small>`;
         const t2 = setTimeout(() => {
-          if (phase === "nogo") {
-            noGoSaves++;
-            scheduleNextFlash();
-          }
+          if (phase === "nogo") { noGoSaves++; scheduleNextFlash(); }
         }, 950);
         activeTimers.push(t2);
       } else {
@@ -1545,10 +1359,7 @@ function initReflexGame(stage) {
     state.scores.reflex = Math.round(clamp(115 - (meanRt - 180) * 0.16 - noGoFails * 8, 25, 99));
 
     const archetype = meanRt < 260 ? "Hair-Trigger Interceptor" : meanRt < 370 ? "Balanced Tactical Reflex" : "Calm Precision Verifier";
-    const heightLine = axonDeltaMs === 0
-      ? ""
-      : ` Even accounting for your height (${heightCm} cm), your signal travelled clean and fast.`;
-
+    const heightLine = axonDeltaMs === 0 ? "" : ` Even accounting for your height (${heightCm} cm), your signal travelled clean and fast.`;
     saveReveal("reflex", {
       headline: `At 70 mph, You React in Just ${meters70.toFixed(1)} m (${Math.round(feet70)} ft)!`,
       body: `You locked in a ${meanRt} ms response speed as a ${archetype}, with ${noGoSaves} clean freeze saves.${heightLine}`
@@ -1557,18 +1368,10 @@ function initReflexGame(stage) {
 
   orb.addEventListener("pointerdown", (e) => {
     e.preventDefault();
-    if (phase === "idle") {
-      startCountdown(9.0, finishReflex);
-      scheduleNextFlash();
-    } else if (phase === "go") {
-      rts.push(performance.now() - stimulusTs);
-      scheduleNextFlash();
-    } else if (phase === "wait") {
-      falseStarts++;
-    } else if (phase === "nogo") {
-      noGoFails++;
-      scheduleNextFlash();
-    }
+    if (phase === "idle") { startCountdown(9.0, finishReflex); scheduleNextFlash(); }
+    else if (phase === "go") { rts.push(performance.now() - stimulusTs); scheduleNextFlash(); }
+    else if (phase === "wait") { falseStarts++; }
+    else if (phase === "nogo") { noGoFails++; scheduleNextFlash(); }
   });
 }
 
@@ -1576,26 +1379,21 @@ function initMetronome(stage) {
   document.getElementById("gameTitle").textContent = "The Invisible Metronome";
   document.getElementById("gameDesc").textContent = "Tap the pastel circle to whatever regular beat feels naturally good to you.";
   stage.innerHTML = `
-    <button id="metroOrb" class="orb-btn orb-metro"><span>TAP BEAT</span><small id="metroCnt" style="font-weight:600;">0 taps</small></button>
+    <button id="metroOrb" class="orb-btn orb-metro" type="button"><span>TAP BEAT</span><small id="metroCnt" style="font-weight:600;">0 taps</small></button>
     <div style="font-size:12px; color:var(--muted);">Just tap at your own natural speed</div>
   `;
   const orb = document.getElementById("metroOrb");
   const cntEl = document.getElementById("metroCnt");
   const taps = [];
-  let started = false;
-  let finished = false;
+  let started = false, finished = false;
 
   function registerTap(e) {
     if (finished) return;
     if (e) e.preventDefault();
-    const now = performance.now();
-    taps.push(now);
+    taps.push(performance.now());
     cntEl.textContent = `${taps.length} tap${taps.length === 1 ? "" : "s"}`;
     pulseWaveform(1.2);
-    if (!started) {
-      started = true;
-      startCountdown(8.0, finishMetronome);
-    }
+    if (!started) { started = true; startCountdown(8.0, finishMetronome); }
   }
 
   function finishMetronome() {
@@ -1603,7 +1401,6 @@ function initMetronome(stage) {
     finished = true;
     cleanupActiveGame();
     setTimerRing(0, 8, "Done");
-
     const intervals = [];
     for (let i = 1; i < taps.length; i++) {
       const dt = taps[i] - taps[i - 1];
@@ -1614,7 +1411,6 @@ function initMetronome(stage) {
     const cv = intervals.length >= 2 ? (stdDev(intervals) / avgIti) * 100 : 6.0;
     state.scores.motor = Math.round(clamp(96 - cv * 2.2, 35, 98));
     stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">Beat captured!</div>`;
-
     saveReveal("metronome", {
       headline: `Your Hidden Internal Tempo is ${bpm} BPM`,
       body: `Without any music playing, your natural rhythm settled straight onto ${bpm} beats per minute — meaning your brain drops into effortless flow with ${Math.max(60, bpm - 10)}-${bpm + 10} BPM tracks, holding steady with only ${cv.toFixed(1)}% drift.`
@@ -1636,14 +1432,8 @@ function initStroop(stage) {
     { name: "SKY", hex: "#0284c7", cls: "stroop-sky" },
     { name: "GOLD", hex: "#d97706", cls: "stroop-gold" }
   ];
-  let started = false;
-  let finished = false;
-  let curTrial = null;
-  let trialTs = 0;
-  const congRT = [];
-  const incongRT = [];
-  let correct = 0;
-  let total = 0;
+  let started = false, finished = false, curTrial = null, trialTs = 0, correct = 0, total = 0;
+  const congRT = [], incongRT = [];
 
   function nextTrial() {
     const wordItem = palette[Math.floor(Math.random() * 4)];
@@ -1658,7 +1448,7 @@ function initStroop(stage) {
     stage.innerHTML = `
       <div class="stroop-word" style="color:${inkItem.hex};">${wordItem.name}</div>
       <div class="stroop-grid">
-        ${palette.map(p => `<button class="stroop-btn ${p.cls}" data-color="${p.name}">${p.name}</button>`).join("")}
+        ${palette.map(p => `<button class="stroop-btn ${p.cls}" type="button" data-color="${p.name}">${p.name}</button>`).join("")}
       </div>
     `;
     stage.querySelectorAll(".stroop-btn").forEach(btn => {
@@ -1667,10 +1457,7 @@ function initStroop(stage) {
         if (finished) return;
         const isFirstTap = !started;
         const rt = performance.now() - trialTs;
-        if (isFirstTap) {
-          started = true;
-          startCountdown(9.0, finishStroop);
-        }
+        if (isFirstTap) { started = true; startCountdown(9.0, finishStroop); }
         total++;
         if (btn.dataset.color === curTrial.ink) {
           correct++;
@@ -1695,17 +1482,12 @@ function initStroop(stage) {
     const delta = Math.round(clamp(iMean - cMean, -150, 900));
     state.scores.stroop = Math.round(clamp(acc * 0.75 + clamp(25 - Math.max(0, delta) * 0.08, 0, 25), 25, 99));
     stage.innerHTML = `<div style="font-weight:800; color:#5b21b6;">${correct}/${total} correct (${acc}%)</div>`;
-
-    const headline = delta <= 90
-      ? `Razor-Sharp Focus Filter (${acc}% Accuracy!)`
-      : `Hyper-Speed Reader (${acc}% Accuracy!)`;
+    const headline = delta <= 90 ? `Razor-Sharp Focus Filter (${acc}% Accuracy!)` : `Hyper-Speed Reader (${acc}% Accuracy!)`;
     const body = delta <= 90
       ? `You stayed calm under clashing cues and hit ${acc}% accuracy across ${total} rapid rounds — effortlessly tuning out distractions when the pressure is on.`
       : `Your reading brain locks onto words almost instantaneously, while still pulling off ${acc}% accuracy across ${total} rapid-fire clashes.`;
-
     saveReveal("stroop", { headline, body });
   }
-
   nextTrial();
 }
 
@@ -1726,20 +1508,10 @@ function initMicroScribe(stage) {
   `;
   const box = document.getElementById("scribeBox");
   const status = document.getElementById("scribeStatus");
-  let focusTs = null;
-  let firstKeyTs = null;
-  let started = false;
-  let finished = false;
-  let lastTs = null;
-  const localIki = [];
-  const localDwell = [];
-  const localDown = new Map();
-  let localKeys = 0;
-  let localEdits = 0;
+  let focusTs = null, firstKeyTs = null, started = false, finished = false, lastTs = null, localKeys = 0, localEdits = 0;
+  const localIki = [], localDwell = [], localDown = new Map();
 
-  box.addEventListener("focus", () => {
-    if (!focusTs) focusTs = performance.now();
-  });
+  box.addEventListener("focus", () => { if (!focusTs) focusTs = performance.now(); });
 
   function onScribeInput(isDel = false) {
     if (finished) return;
@@ -1780,9 +1552,7 @@ function initMicroScribe(stage) {
     const isSingleDelete = type === "deleteContentBackward" || type === "deleteContentForward";
     if (!isSingleInsert && !isSingleDelete) return;
     const now = performance.now();
-    if (lastTs === null || (now - lastTs) > 22) {
-      onScribeInput(isSingleDelete);
-    }
+    if (lastTs === null || (now - lastTs) > 22) onScribeInput(isSingleDelete);
   });
 
   function finishScribe() {
@@ -1797,7 +1567,6 @@ function initMicroScribe(stage) {
     const editRate = localKeys ? round((localEdits / localKeys) * 100, 1) : 0;
     state.scores.syntax = Math.round(clamp(syn.cmtePrecision * 85 + (100 - editRate) * 0.15, 30, 99));
     status.textContent = `Captured ${syn.words} words!`;
-
     const isPreEditor = editRate < 6.5 || thinkSec > 1.8;
     const headline = isPreEditor
       ? "Silent Pre-Editor — You Build Whole Thoughts Before You Move"
@@ -1805,34 +1574,76 @@ function initMicroScribe(stage) {
     const body = isPreEditor
       ? `You paused ${thinkSec.toFixed(1)}s to shape the idea cleanly in your head, then delivered it with barely any backtracking (${editRate}% edits). You naturally prefer getting the wording right on the first pass.`
       : `You jumped straight in after ${thinkSec.toFixed(1)}s and shaped your phrasing live on the fly — the classic signature of someone who thinks fastest while actively creating.`;
-
     saveReveal("scribe", { headline, body });
   }
 }
 
-document.getElementById("paperUpload").addEventListener("change", (e) => {
-  const file = e.target.files?.[0];
+/* FIXED PHOTO UPLOAD + CAMERA CAPTURE (Android 14/15/16 Chrome, Samsung, iOS safe) */
+function handleHandwritingFileChange(e) {
+  const input = e.target;
+  const file = input.files && input.files[0];
+  const uploadStatus = document.getElementById("uploadStatus");
   if (!file) return;
+
   document.getElementById("paperText").value = "";
   state.paperCloud = null;
   document.getElementById("cloudStatus").textContent = "";
-  const reader = new FileReader();
-  reader.onload = () => {
-    const img = new Image();
-    img.onload = () => processHandwritingImage(img, file.type || "image/jpeg", true);
-    img.src = reader.result;
+  uploadStatus.textContent = "Reading handwriting photo...";
+
+  const doneCleanup = () => {
+    try { input.value = ""; } catch {}
   };
-  reader.readAsDataURL(file);
-});
+
+  const loadViaFileReader = () => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        uploadStatus.textContent = "Handwriting sheet scanned.";
+        processHandwritingImage(img, file.type || "image/jpeg", true);
+        doneCleanup();
+      };
+      img.onerror = () => {
+        uploadStatus.textContent = "Could not open this image format. Try a standard JPG or PNG photo.";
+        doneCleanup();
+      };
+      img.src = reader.result;
+    };
+    reader.onerror = () => {
+      uploadStatus.textContent = "Could not read this file. Please pick another photo.";
+      doneCleanup();
+    };
+    reader.readAsDataURL(file);
+  };
+
+  if (window.URL && URL.createObjectURL) {
+    const objUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try { URL.revokeObjectURL(objUrl); } catch {}
+      uploadStatus.textContent = "Handwriting sheet scanned.";
+      processHandwritingImage(img, file.type || "image/jpeg", true);
+      doneCleanup();
+    };
+    img.onerror = () => {
+      try { URL.revokeObjectURL(objUrl); } catch {}
+      loadViaFileReader();
+    };
+    img.src = objUrl;
+  } else {
+    loadViaFileReader();
+  }
+}
+
+document.getElementById("paperGallery").addEventListener("change", handleHandwritingFileChange);
+document.getElementById("paperCamera").addEventListener("change", handleHandwritingFileChange);
 
 async function runDemoPaper() {
   state.paperCloud = null;
   document.getElementById("cloudStatus").textContent = "";
+  document.getElementById("uploadStatus").textContent = "Demo handwriting loaded.";
   try {
-    await Promise.race([
-      document.fonts.ready,
-      new Promise(r => setTimeout(r, 600))
-    ]);
+    await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 600))]);
   } catch {}
 
   const c = document.createElement("canvas");
@@ -1850,16 +1661,10 @@ async function runDemoPaper() {
   ctx.strokeStyle = "rgba(100, 149, 237, 0.22)";
   ctx.lineWidth = 1;
   for (let y = 58; y < c.height; y += 44) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(c.width, y);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(c.width, y); ctx.stroke();
   }
   ctx.strokeStyle = "rgba(236, 72, 153, 0.22)";
-  ctx.beginPath();
-  ctx.moveTo(68, 0);
-  ctx.lineTo(68, c.height);
-  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(68, 0); ctx.lineTo(68, c.height); ctx.stroke();
 
   const lines = [
     { text: "I think I left my keys near the back door", y: 100, x: 84, slope: -0.014, ink: "#24304a", size: 36, bold: false },
@@ -2039,8 +1844,7 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
   const useVertical = isPhoto && vBands.length > hBands.length && vBands.length >= 2;
   const chosenBands = useVertical ? vBands : hBands;
 
-  let peakLineIdx = 0;
-  let peakScore = -1;
+  let peakLineIdx = 0, peakScore = -1;
   const lineStats = [];
 
   chosenBands.forEach((band) => {
@@ -2077,19 +1881,13 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
     const focusScore = meanDark * 0.55 + Math.sqrt(darkVar) * 0.9 + density * 90;
     const item = {
       idx: lineStats.length + 1,
-      y0: minY,
-      y1: maxY,
-      minX,
-      maxX,
+      y0: minY, y1: maxY, minX, maxX,
       meanDark: round(meanDark, 1),
       darkVar: round(darkVar, 1),
       slopeDeg: round(-Math.atan(slope) * 180 / Math.PI, 2),
       focusScore: round(focusScore, 1)
     };
-    if (focusScore > peakScore) {
-      peakScore = focusScore;
-      peakLineIdx = lineStats.length;
-    }
+    if (focusScore > peakScore) { peakScore = focusScore; peakLineIdx = lineStats.length; }
     lineStats.push(item);
   });
 
@@ -2129,15 +1927,9 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
   canvas.style.display = "inline-block";
 
   state.paperCV = {
-    width: w,
-    height: h,
-    otsuThreshold: thresh,
-    inkCoverageRatio: inkCoverage,
-    slantDeg: round(slantDeg, 1),
-    meanSlopeDeg,
-    marginDriftPx,
-    lineCount: lineStats.length,
-    peakLine: peak || null
+    width: w, height: h, otsuThreshold: thresh, inkCoverageRatio: inkCoverage,
+    slantDeg: round(slantDeg, 1), meanSlopeDeg, marginDriftPx,
+    lineCount: lineStats.length, peakLine: peak || null
   };
   renderPaperReveal();
 }
@@ -2206,7 +1998,7 @@ async function runCloudPaperRead() {
   const status = document.getElementById("cloudStatus");
   const text = document.getElementById("paperText").value.trim();
   if (!state.paperImageBase64 && !text) {
-    status.textContent = "Snap a handwriting photo or tap Try Demo Paper first.";
+    status.textContent = "Upload a handwriting photo, take a photo, or tap Try Demo Paper first.";
     return;
   }
   status.textContent = "Running Deep Cloud AI Read...";
@@ -2309,18 +2101,8 @@ function renderReadout() {
   const avgIki = state.ikiList.length ? `${Math.round(mean(state.ikiList))} ms` : "Listening";
   const avgDrop = state.dropdownTimes.length ? `${(mean(state.dropdownTimes) / 1000).toFixed(2)} s` : "Not yet measured";
   const editRate = state.keys ? `${round((state.backspaces / state.keys) * 100, 1)}%` : "0.0%";
-  const burstLabel = brac.bn === null
-    ? "Type more to read"
-    : brac.bn > 0.2
-      ? "Sprint Bursts"
-      : brac.bn < -0.15
-        ? "Ultra-Steady"
-        : "Balanced Flow";
-  const cycleLabel = brac.bracScale >= 1.05
-    ? "Peak Focus Window"
-    : brac.bracScale <= 0.95
-      ? "Recharge Window"
-      : "Steady Cruise";
+  const burstLabel = brac.bn === null ? "Type more to read" : brac.bn > 0.2 ? "Sprint Bursts" : brac.bn < -0.15 ? "Ultra-Steady" : "Balanced Flow";
+  const cycleLabel = brac.bracScale >= 1.05 ? "Peak Focus Window" : brac.bracScale <= 0.95 ? "Recharge Window" : "Steady Cruise";
 
   const rows = [
     ["Mental Load Index", `${brac.score} / 100`],
@@ -2351,13 +2133,29 @@ function renderReadout() {
   }
 }
 
+function shareChallenge() {
+  const firstRev = Object.values(state.reveals)[0];
+  const url = window.location.href.split("?")[0];
+  const text = firstRev
+    ? `I just got "${firstRev.headline}" on Tipo. Bet you can't hit 4.00 seconds without counting — try it free: ${url}`
+    : `Bet you can't hold the button for exactly 4.00 seconds without counting. Try Tipo free in your browser: ${url}`;
+  if (navigator.share) {
+    navigator.share({ title: "Tipo 4-Second Brain Challenge", text, url }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert("Challenge link copied — paste it into any chat!"));
+  } else {
+    alert(text);
+  }
+}
+
 function copyFullReadout() {
   const brac = computeCfxBrac();
   const lines = [
     "Tipo — Full Mind & Motor Readout",
     `Mental Load Index: ${brac.score}/100 | Cycle: ${brac.phasePct}%`,
     `6-Axis Scores: Motor ${state.scores.motor}, Reflex ${state.scores.reflex}, Time ${state.scores.time}, Spatial ${state.scores.spatial}, Focus ${state.scores.stroop}, Syntax ${state.scores.syntax}`,
-    ...Object.values(state.reveals).map(r => `${r.headline}: ${r.body}`)
+    ...Object.values(state.reveals).map(r => `${r.headline}: ${r.body}`),
+    `Try it free: ${window.location.href.split("?")[0]}`
   ];
   navigator.clipboard?.writeText(lines.join("\n"));
   alert("Readout copied to clipboard!");
