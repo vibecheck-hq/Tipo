@@ -1780,7 +1780,7 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
     }
   }
 
-  const marginRatio = isPhoto ? 0.06 : 0.02;
+  const marginRatio = isPhoto ? 0.10 : 0.02;
   const xMin = Math.max(2, Math.floor(w * marginRatio));
   const xMax = Math.min(w - 2, Math.floor(w * (1 - marginRatio)));
   const yMin = Math.max(2, Math.floor(h * marginRatio));
@@ -1872,7 +1872,8 @@ function processHandwritingImage(img, mime = "image/jpeg", isPhoto = true) {
         cnt++;
       }
     }
-    if (cnt < 25 || maxX <= minX || maxY <= minY) return;
+    const bandDensity = cnt / Math.max(1, (maxY - minY + 1) * (maxX - minX + 1));
+    if (cnt < 25 || maxX <= minX || (maxY - minY) < 12 || (isPhoto && bandDensity > 0.55)) return;
     const meanDark = sumDark / cnt;
     const darkVar = Math.max(0, (sumDarkSq / cnt) - meanDark ** 2);
     const den = cnt * sxx - sx * sx;
@@ -1988,6 +1989,12 @@ function renderPaperReveal() {
     </p>
     ${cloudBlock}
   `;
+  state.paperRevealSummary = {
+    headline: peakTitle,
+    body: state.paperCloud && state.paperCloud.executive_read
+      ? state.paperCloud.executive_read
+      : `Your handwriting reveals ${slantDesc}, paired with ${slopeDesc} and ${marginDesc}.`
+  };
 }
 
 document.getElementById("paperText").addEventListener("input", () => {
@@ -2121,7 +2128,7 @@ function renderReadout() {
     </div>
   `).join("");
 
-  const revs = Object.values(state.reveals);
+  const revs = [...Object.values(state.reveals), ...(state.paperRevealSummary ? [state.paperRevealSummary] : [])];
   const revBox = document.getElementById("readoutReveals");
   if (revs.length) {
     revBox.innerHTML = revs.map(r => `
@@ -2137,14 +2144,14 @@ function shareChallenge() {
   const firstRev = Object.values(state.reveals)[0];
   const url = window.location.href.split("?")[0];
   const text = firstRev
-    ? `I just got "${firstRev.headline}" on Tipo. Bet you can't hit 4.00 seconds without counting — try it free: ${url}`
-    : `Bet you can't hold the button for exactly 4.00 seconds without counting. Try Tipo free in your browser: ${url}`;
+    ? `I just got "${firstRev.headline}" on Tipo. Bet you can't hit 4.00 seconds without counting — try it free:`
+    : `Bet you can't hold the button for exactly 4.00 seconds without counting. Try Tipo free in your browser:`;
   if (navigator.share) {
     navigator.share({ title: "Tipo 4-Second Brain Challenge", text, url }).catch(() => {});
   } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => alert("Challenge link copied — paste it into any chat!"));
+    navigator.clipboard.writeText(text + " " + url).then(() => alert("Challenge link copied — paste it into any chat!"));
   } else {
-    alert(text);
+    alert(text + " " + url);
   }
 }
 
