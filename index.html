@@ -676,6 +676,7 @@ textarea:focus, select:focus, input[type="text"]:focus {
 
       <div class="btn-row" style="margin-top:12px;">
         <button id="cloudReadBtn" class="btn btn-gold" type="button" onclick="runCloudPaperRead()">Deep Cloud AI Read</button>
+        <button id="paperPayBtn" class="btn btn-primary hidden" type="button" onclick="startStripeCheckout()">Unlock 50 Cloud Reads — £0.99</button>
       </div>
       <div id="cloudStatus" style="font-size:12px; color:var(--muted); margin-top:8px;"></div>
     </div>
@@ -731,8 +732,8 @@ textarea:focus, select:focus, input[type="text"]:focus {
 const CONFIG = {
   SUPABASE_FUNCTIONS_BASE: "https://qnnnnvlissdqdwmkgrao.supabase.co/functions/v1",
   TIPO_API_ENDPOINT: "https://qnnnnvlissdqdwmkgrao.supabase.co/functions/v1/tipo-api",
-  CHECKOUT_ENDPOINT: "https://qnnnnvlissdqdwmkgrao.supabase.co/functions/v1/create-checkout",
-  ENABLE_PAID_GATE: false
+  CHECKOUT_ENDPOINT: "https://qnnnnvlissdqdwmkgrao.supabase.co/functions/v1/tipo-api",
+  ENABLE_PAID_GATE: true
 };
 
 let deferredInstallPrompt = null;
@@ -833,8 +834,11 @@ const state = {
 if (state.decodeSessionId) {
   localStorage.setItem("tipo_session_id", state.decodeSessionId);
   const chip = document.getElementById("passStatusChip");
-  chip.textContent = "Cloud Pass Active";
+  chip.textContent = "Tipo Pro Cloud Pass Active";
   chip.classList.remove("hidden");
+  if (new URLSearchParams(location.search).get("session_id")) {
+    showInstallToast("Tipo Pro Cloud Pass unlocked! 50 Deep Cloud AI Reads ready in the Paper tab.");
+  }
 }
 
 function round(n, d = 2) { const p = 10 ** d; return Math.round(n * p) / p; }
@@ -2033,7 +2037,9 @@ async function runCloudPaperRead() {
     });
     const data = await res.json();
     if (res.status === 402) {
-      status.textContent = data.error || "Unlock the 99p Cloud Pass in Readout to run Deep Cloud AI reads.";
+      status.textContent = data.error || "Unlock the 99p Tipo Pro Cloud Pass for 50 Deep Cloud AI reads.";
+      const payBtn = document.getElementById("paperPayBtn");
+      if (payBtn) payBtn.classList.remove("hidden");
       return;
     }
     if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
@@ -2041,7 +2047,10 @@ async function runCloudPaperRead() {
     if (data.handwriting_transcription && !text) {
       document.getElementById("paperText").value = data.handwriting_transcription;
     }
-    status.textContent = "Deep Cloud AI Read complete.";
+    const rem = data.meta && typeof data.meta.credits_remaining === "number" ? ` (${data.meta.credits_remaining} Cloud Reads left)` : "";
+    status.textContent = "Deep Cloud AI Read complete." + rem;
+    const payBtn = document.getElementById("paperPayBtn");
+    if (payBtn) payBtn.classList.add("hidden");
     if (!state.paperCV) {
       state.paperCV = { width: 0, height: 0, otsuThreshold: 0, inkCoverageRatio: 0, slantDeg: 0, meanSlopeDeg: 0, marginDriftPx: 0, lineCount: 0, peakLine: null };
     }
@@ -2170,13 +2179,15 @@ function copyFullReadout() {
 
 async function startStripeCheckout() {
   const chip = document.getElementById("passStatusChip");
+  const cs = document.getElementById("cloudStatus");
+  if (cs) cs.textContent = "Opening 99p Checkout...";
   chip.textContent = "Opening 99p Checkout...";
   chip.classList.remove("hidden");
   try {
     const res = await fetch(CONFIG.CHECKOUT_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ returnUrl: window.location.href.split("?")[0], app: "tipo" })
+      body: JSON.stringify({ mode: "create_checkout", returnUrl: window.location.href.split("?")[0], app: "tipo" })
     });
     const data = await res.json();
     if (data.url) {

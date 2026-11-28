@@ -9,6 +9,7 @@ const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQ = 20;
 const MAX_IMAGE_BASE64_CHARS = 5_600_000;
 const ALLOWED_IMAGE_MIMES = new Set(["image/jpeg", "image/png", "image/webp"]);
+const PASS_CREDITS = 50;
 
 const STATIC_ALLOWED_ORIGINS = new Set([
   "https://vibecheck-hq.github.io",
@@ -86,16 +87,102 @@ interface HandwritingImageInput {
 }
 
 interface RequestPayload {
-  mode?: "single" | "handwriting";
+  mode?: "single" | "handwriting" | "create_checkout";
   text?: string;
   sessionId?: string;
+  returnUrl?: string;
+  app?: string;
   handwritingImage?: HandwritingImageInput | null;
   localCv?: Record<string, unknown> | null;
   runLlm?: boolean;
 }
 
+const memoryCredits = new Map<string, number>();
+
+async function createTipoCheckout(req: Request, body: RequestPayload): Promise<Response> {
+  const stripeKey = (Deno.env.get("STRIPE_SECRET_KEY") || "").trim();
+  if (!stripeKey) {
+    return jsonResponse(req, { error: "Stripe key missing in Supabase Secrets." }, 500);
+  }
+
+  let safeReturn = "https://vibecheck-hq.github.io/Tipo/";
+  const rawReturn = String(body.returnUrl || "").trim();
+  if (/^https:\/\/[A-Za-z0-9.-]+(\/[^\s?#]*)?$/.test(rawReturn)) {
+    safeReturn = rawReturn;
+  }
+
+  const params = new URLSearchParams({
+    mode: "payment",
+    "payment_method_types[0]": "card",
+    "line_items[0][price_data][currency]": "gbp",
+    "line_items[0][price_data][unit_amount]": "99",
+    "line_items[0][price_data][product_data][name]": "Tipo Pro Cloud Pass",
+    "line_items[0][price_data][product_data][description]": "50 Deep Cloud AI handwriting & subtext reads for Tipo",
+    "line_items[0][quantity]": "1",
+    success_url: `${safeReturn}?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${safeReturn}?cancelled=1`,
+    "metadata[app]": "tipo",
+    "metadata[pack]": "tipo_cloud_pass_99p",
+    "metadata[credits]": String(PASS_CREDITS),
+  });
+
+  const stripeRes = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${stripeKey}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: params.toString(),
+  });
+
+  const stripeData = await stripeRes.json();
+  if (!stripeRes.ok || !stripeData?.url) {
+    return jsonResponse(
+      req,
+      { error: stripeData?.error?.message || `Stripe error (HTTP ${stripeRes.status})` },
+      500,
+    );
+  }
+
+  try {
+    const supabaseUrl = (Deno.env.get("SUPABASE_URL") || "").trim();
+    const serviceRoleKey = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "").trim();
+    if (supabaseUrl && serviceRoleKey && stripeData.id) {
+      const admin = createClient(supabaseUrl, serviceRoleKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      });
+      await admin.from("decodes").insert({
+        stripe_session_id: stripeData.id,
+        status: "pending",
+        credits_remaining: PASS_CREDITS,
+        credits_used: 0,
+      });
+    }
+  } catch {
+    // Verified directly against Stripe on return
+  }
+
+  return jsonResponse(req, { url: stripeData.url, sessionId: stripeData.id }, 200);
+}
+
+async function verifyStripeSessionLive(sessionId: string): Promise<boolean> {
+  const stripeKey = (Deno.env.get("STRIPE_SECRET_KEY") || "").trim();
+  if (!stripeKey || !sessionId.startsWith("cs_")) return false;
+  try {
+    const res = await fetch(
+      `https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}`,
+      { headers: { Authorization: `Bearer ${stripeKey}` } },
+    );
+    if (!res.ok) return false;
+    const data = await res.json();
+    return data?.payment_status === "paid" && Number(data?.amount_total || 0) >= 99;
+  } catch {
+    return false;
+  }
+}
+
 async function verifyAccessGate(req: Request, body: RequestPayload, needsLlm: boolean) {
-  const requireGate = (Deno.env.get("REQUIRE_PAID_GATE") || "").toLowerCase() === "true";
+  const requireGate = (Deno.env.get("REQUIRE_PAID_GATE") || "true").toLowerCase() !== "false";
   if (!requireGate || !needsLlm) {
     return { authorized: true, status: 200, mode: "open_rd", credits_remaining: null as number | null };
   }
@@ -106,47 +193,106 @@ async function verifyAccessGate(req: Request, body: RequestPayload, needsLlm: bo
     return { authorized: true, status: 200, mode: "owner_bypass", credits_remaining: null };
   }
 
-  const supabaseUrl = (Deno.env.get("SUPABASE_URL") || "").trim();
-  const serviceRoleKey = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "").trim();
-  if (!supabaseUrl || !serviceRoleKey) {
-    return { authorized: false, status: 500, error: "Billing gate misconfigured.", mode: "paid_session" };
-  }
-
-  const admin = createClient(supabaseUrl, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-
   const sessionId = (body.sessionId || req.headers.get("x-decode-session") || "").trim();
   if (!sessionId || !/^[A-Za-z0-9_-]{8,128}$/.test(sessionId)) {
     return {
       authorized: false,
       status: 402,
-      error: "Unlock a 99p Tipo Cloud Pass to run live Gemini Vision analysis.",
+      error: "Unlock the 99p Tipo Pro Cloud Pass for 50 Deep Cloud AI reads.",
       mode: "paid_session",
     };
   }
 
+  const supabaseUrl = (Deno.env.get("SUPABASE_URL") || "").trim();
+  const serviceRoleKey = (Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "").trim();
+  const admin = supabaseUrl && serviceRoleKey
+    ? createClient(supabaseUrl, serviceRoleKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      })
+    : null;
+
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(sessionId);
-  const query = admin.from("decodes").select("id, status, credits_remaining, credits_used");
-  const { data: row, error } = await (
-    isUuid ? query.eq("id", sessionId) : query.eq("stripe_session_id", sessionId)
-  ).maybeSingle();
 
-  if (error) {
-    return { authorized: false, status: 500, error: `Credit check failed: ${error.message}`, mode: "paid_session" };
-  }
-  if (!row || row.status !== "paid") {
-    return { authorized: false, status: 402, error: "Payment required. Unlock a 99p Tipo Cloud Pass.", mode: "paid_session" };
-  }
-
-  const remaining = typeof row.credits_remaining === "number" ? row.credits_remaining : 1;
-  if (remaining <= 0) {
-    return { authorized: false, status: 402, error: "0 credits remaining on this pass.", mode: "paid_session", credits_remaining: 0 };
+  let row: { id: string; status: string; credits_remaining: number | null; credits_used: number | null } | null = null;
+  if (admin) {
+    try {
+      const query = admin.from("decodes").select("id, status, credits_remaining, credits_used");
+      const { data } = await (
+        isUuid ? query.eq("id", sessionId) : query.eq("stripe_session_id", sessionId)
+      ).maybeSingle();
+      row = data;
+    } catch {
+      row = null;
+    }
   }
 
-  const nextRemaining = Math.max(0, remaining - 1);
-  const nextUsed = (typeof row.credits_used === "number" ? row.credits_used : 0) + 1;
-  await admin.from("decodes").update({ credits_remaining: nextRemaining, credits_used: nextUsed }).eq("id", row.id);
+  if (row && row.status === "paid") {
+    const remaining = typeof row.credits_remaining === "number" ? row.credits_remaining : PASS_CREDITS;
+    if (remaining <= 0) {
+      return {
+        authorized: false,
+        status: 402,
+        error: "You used all 50 Cloud Reads on this pass. Unlock a fresh pass for 99p.",
+        mode: "paid_session",
+        credits_remaining: 0,
+      };
+    }
+    const nextRemaining = Math.max(0, remaining - 1);
+    const nextUsed = (typeof row.credits_used === "number" ? row.credits_used : 0) + 1;
+    if (admin) {
+      await admin.from("decodes").update({ credits_remaining: nextRemaining, credits_used: nextUsed }).eq("id", row.id);
+    }
+    return { authorized: true, status: 200, mode: "paid_session", credits_remaining: nextRemaining };
+  }
+
+  const paidOnStripe = await verifyStripeSessionLive(sessionId);
+  if (!paidOnStripe) {
+    return {
+      authorized: false,
+      status: 402,
+      error: "Unlock the 99p Tipo Pro Cloud Pass for 50 Deep Cloud AI reads.",
+      mode: "paid_session",
+    };
+  }
+
+  const nextRemaining = PASS_CREDITS - 1;
+  let persisted = false;
+  if (admin) {
+    try {
+      if (row) {
+        const { error } = await admin
+          .from("decodes")
+          .update({ status: "paid", credits_remaining: nextRemaining, credits_used: 1 })
+          .eq("id", row.id);
+        persisted = !error;
+      } else {
+        const { error } = await admin.from("decodes").insert({
+          stripe_session_id: sessionId,
+          status: "paid",
+          credits_remaining: nextRemaining,
+          credits_used: 1,
+        });
+        persisted = !error;
+      }
+    } catch {
+      persisted = false;
+    }
+  }
+
+  if (!persisted) {
+    const curMem = memoryCredits.has(sessionId) ? memoryCredits.get(sessionId)! : PASS_CREDITS;
+    if (curMem <= 0) {
+      return {
+        authorized: false,
+        status: 402,
+        error: "You used all 50 Cloud Reads on this pass. Unlock a fresh pass for 99p.",
+        mode: "paid_session",
+        credits_remaining: 0,
+      };
+    }
+    memoryCredits.set(sessionId, curMem - 1);
+    return { authorized: true, status: 200, mode: "paid_session", credits_remaining: curMem - 1 };
+  }
 
   return { authorized: true, status: 200, mode: "paid_session", credits_remaining: nextRemaining };
 }
@@ -192,7 +338,7 @@ async function runGeminiPaperRead(
   localCv: Record<string, unknown> | null,
   headerKey: string | null,
 ) {
-  const allowByok = (Deno.env.get("REQUIRE_PAID_GATE") || "").toLowerCase() !== "true";
+  const allowByok = (Deno.env.get("REQUIRE_PAID_GATE") || "true").toLowerCase() === "false";
   const apiKey = (Deno.env.get("GEMINI_API_KEY") || Deno.env.get("GOOGLE_API_KEY") || (allowByok ? headerKey : "") || "").trim();
 
   if (!apiKey) {
@@ -295,11 +441,12 @@ Deno.serve(async (req: Request) => {
   }
 
   if (req.method === "GET") {
-    const requireGate = (Deno.env.get("REQUIRE_PAID_GATE") || "").toLowerCase() === "true";
+    const requireGate = (Deno.env.get("REQUIRE_PAID_GATE") || "true").toLowerCase() !== "false";
     return jsonResponse(req, {
       status: "ok",
       function: "tipo-api",
       billing_gate: requireGate ? "enforced" : "open_rd",
+      checkout: "ready",
       timestamp: new Date().toISOString(),
     });
   }
@@ -321,6 +468,11 @@ Deno.serve(async (req: Request) => {
 
   try {
     const body = (await req.json()) as RequestPayload;
+
+    if (body.mode === "create_checkout") {
+      return await createTipoCheckout(req, body);
+    }
+
     const runLlm = body.runLlm !== false;
     const gate = await verifyAccessGate(req, body, runLlm);
     if (!gate.authorized) {
